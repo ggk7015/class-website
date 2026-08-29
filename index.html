@@ -53,15 +53,6 @@
       <!-- ================= PAGE 1: HOME ================= -->
       <section id="view-home" class="page-view view-active">
 
-        <!-- LINE Banner Notification -->
-        <div class="line-tip-banner" id="line-tip-banner">
-          <div class="banner-icon">📱</div>
-          <div class="banner-text">
-            <strong>LINE 開啟提示：</strong> 若開啟異常，請點右下角「⋯」選擇「以預設瀏覽器開啟」
-          </div>
-          <button class="banner-close" id="btn-close-banner" aria-label="關閉提示">×</button>
-        </div>
-
         <!-- 6 Main Feature Entry Cards Grid (2 cols x 3 rows) -->
         <div class="feature-grid">
 
@@ -69,7 +60,6 @@
           <button class="feature-card" data-target-view="view-announcements" aria-label="📢 最新公告 查看近期班級重要通知">
             <div class="card-badge-container">
               <span class="card-icon">📢</span>
-              <span class="card-notice-dot" id="notice-dot-important" title="有重要公告"></span>
             </div>
             <div class="card-text-group">
               <h3 class="card-title">最新公告</h3>
@@ -80,49 +70,7 @@
             </div>
           </button>
 
-          <!-- Card 2: 宣導事項 -->
-          <button class="feature-card" data-target-view="view-guidelines" aria-label="📌 宣導事項 查看校園與生活重要宣導">
-            <div class="card-badge-container">
-              <span class="card-icon">📌</span>
-            </div>
-            <div class="card-text-group">
-              <h3 class="card-title">宣導事項</h3>
-              <p class="card-desc">查看校園與生活重要宣導</p>
-            </div>
-            <div class="card-arrow">
-              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </div>
-          </button>
-
-          <!-- Card 3: 重要規定 -->
-          <button class="feature-card" data-target-view="view-rules" aria-label="📖 重要規定 查看校規與重要辦法">
-            <div class="card-badge-container">
-              <span class="card-icon">📖</span>
-            </div>
-            <div class="card-text-group">
-              <h3 class="card-title">重要規定</h3>
-              <p class="card-desc">查看校規與重要辦法</p>
-            </div>
-            <div class="card-arrow">
-              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </div>
-          </button>
-
-          <!-- Card 4: 報名專區 -->
-          <button class="feature-card" data-target-view="view-registrations" aria-label="📝 線上辦理 報名、填表、查詢與線上系統">
-            <div class="card-badge-container">
-              <span class="card-icon">📝</span>
-            </div>
-            <div class="card-text-group">
-              <h3 class="card-title">線上辦理</h3>
-              <p class="card-desc">報名、填表、查詢與線上系統</p>
-            </div>
-            <div class="card-arrow">
-              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </div>
-          </button>
-
-          <!-- Card 5: 課表查詢 -->
+          <!-- Card 2: 課表查詢 -->
           <button class="feature-card" data-target-view="view-timetable" aria-label="📅 課表查詢 查看班級與導師課表">
             <div class="card-badge-container">
               <span class="card-icon">📅</span>
@@ -136,7 +84,7 @@
             </div>
           </button>
 
-          <!-- Card 6: 重要日程 -->
+          <!-- Card 3: 重要日程 -->
           <button class="feature-card" data-target-view="view-events" aria-label="🗓️ 重要日程 查看段考、作業檢查與學校行事">
             <div class="card-badge-container">
               <span class="card-icon">🗓️</span>
@@ -144,6 +92,48 @@
             <div class="card-text-group">
               <h3 class="card-title">重要日程</h3>
               <p class="card-desc">查看段考與行事曆</p>
+            </div>
+            <div class="card-arrow">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+          </button>
+
+          <!-- Card 4: 宣導事項 -->
+          <button class="feature-card" data-target-view="view-guidelines" aria-label="📌 宣導事項 查看校園與生活重要宣導">
+            <div class="card-badge-container">
+              <span class="card-icon">📌</span>
+            </div>
+            <div class="card-text-group">
+              <h3 class="card-title">宣導事項</h3>
+              <p class="card-desc">查看校園與生活重要宣導</p>
+            </div>
+            <div class="card-arrow">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+          </button>
+
+          <!-- Card 5: 報名專區 -->
+          <button class="feature-card" data-target-view="view-registrations" aria-label="📝 線上辦理 報名、填表、查詢與線上系統">
+            <div class="card-badge-container">
+              <span class="card-icon">📝</span>
+            </div>
+            <div class="card-text-group">
+              <h3 class="card-title">線上辦理</h3>
+              <p class="card-desc">報名、填表、查詢與線上系統</p>
+            </div>
+            <div class="card-arrow">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+          </button>
+
+          <!-- Card 6: 重要規定 -->
+          <button class="feature-card" data-target-view="view-rules" aria-label="📖 重要規定 查看校規與重要辦法">
+            <div class="card-badge-container">
+              <span class="card-icon">📖</span>
+            </div>
+            <div class="card-text-group">
+              <h3 class="card-title">重要規定</h3>
+              <p class="card-desc">查看校規與重要辦法</p>
             </div>
             <div class="card-arrow">
               <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>

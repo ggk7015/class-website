@@ -88,7 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
   renderEvents();
   initExternalLinks();
   renderFAQ();
-  initLineBanner();
 });
 
 /**
@@ -201,7 +200,6 @@ function renderAnnouncements() {
   container.innerHTML = '';
   historyContainer.innerHTML = '';
 
-  let hasImportant = false;
   const todayStr = getLocalDateStr();
   const currentAnnouncements = announcementsData.filter(
     ann => !hasAnnouncementLifecycleExpired(ann, todayStr)
@@ -213,8 +211,6 @@ function renderAnnouncements() {
   if (defaultExpandedIndex === -1) defaultExpandedIndex = 0;
 
   currentAnnouncements.forEach((ann, index) => {
-    if (ann.isImportant) hasImportant = true;
-
     const isDefaultExpanded = (index === defaultExpandedIndex);
 
     // 精簡 Tag 顯示邏輯：只保留具有行動意義的 Tag，避免同義資訊重複
@@ -362,11 +358,6 @@ function renderAnnouncements() {
     historyToggle.dataset.bound = 'true';
   }
 
-  // Home Card Red Notice Dot update
-  const noticeDot = document.getElementById('notice-dot-important');
-  if (noticeDot) {
-    noticeDot.style.display = hasImportant ? 'inline-block' : 'none';
-  }
 }
 
 /**
@@ -891,25 +882,6 @@ function renderFAQ() {
 
     container.appendChild(item);
   });
-}
-
-/**
- * 11. LINE App Banner Dismiss Logic
- */
-function initLineBanner() {
-  const banner = document.getElementById('line-tip-banner');
-  const btnClose = document.getElementById('btn-close-banner');
-
-  if (sessionStorage.getItem('hideLineBanner') === 'true') {
-    if (banner) banner.style.display = 'none';
-  }
-
-  if (btnClose && banner) {
-    btnClose.addEventListener('click', () => {
-      banner.style.display = 'none';
-      sessionStorage.setItem('hideLineBanner', 'true');
-    });
-  }
 }
 
 /**

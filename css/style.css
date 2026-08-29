@@ -209,41 +209,6 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* LINE Tip Banner on Home Page */
-.line-tip-banner {
-  background-color: var(--primary-light);
-  border: 1px solid var(--primary-border);
-  border-radius: var(--border-radius-md);
-  padding: 0.6rem 0.8rem;
-  margin-bottom: 0.9rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  box-shadow: var(--shadow-sm);
-}
-
-.banner-icon {
-  font-size: 1.1rem;
-  flex-shrink: 0;
-}
-
-.banner-text {
-  font-size: 0.78rem;
-  color: var(--primary-dark);
-  line-height: 1.35;
-  flex: 1;
-}
-
-.banner-close {
-  background: none;
-  border: none;
-  font-size: 1.1rem;
-  color: var(--text-muted);
-  cursor: pointer;
-  padding: 0.2rem;
-  line-height: 1;
-}
-
 /* 6. Home Feature Grid (2 columns x 3 rows) */
 .feature-grid {
   display: grid;
@@ -291,15 +256,6 @@ body {
 .card-icon {
   font-size: 1.5rem; /* Uniform emoji size */
   line-height: 1;
-}
-
-.card-notice-dot {
-  width: 8px;
-  height: 8px;
-  background-color: var(--danger-color);
-  border-radius: 50%;
-  display: inline-block;
-  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
 }
 
 .card-text-group {
