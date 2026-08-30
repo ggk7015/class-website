@@ -257,14 +257,14 @@ export const registrationsData = [
  */
 export const timetableData = {
   periodsInfo: [
-    { period: 1 },
-    { period: 2 },
-    { period: 3 },
-    { period: 4 },
-    { period: "lunch", label: "🍱 午餐與午休" },
-    { period: 5 },
-    { period: 6 },
-    { period: 7 }
+    { period: 1, time: "08:15 - 09:00" },
+    { period: 2, time: "09:10 - 09:55" },
+    { period: 3, time: "10:10 - 10:55" },
+    { period: 4, time: "11:05 - 11:50" },
+    { period: "lunch", time: "11:50 - 13:10", label: "🍱 午餐與午休" },
+    { period: 5, time: "13:15 - 14:00" },
+    { period: 6, time: "14:10 - 14:55" },
+    { period: 7, time: "15:05 - 15:50" }
   ],
   classSchedule: {
     1: { dayName: "星期一", lessons: [
@@ -311,6 +311,46 @@ export const timetableData = {
       { period: 5, subject: "經濟學" },
       { period: 6, subject: "生活英語會話" },
       { period: 7, subject: "會計學" }
+    ]}
+  },
+  teacherSchedule: {
+    1: { dayName: "星期一", lessons: [
+      { period: 2, subject: "數學", targetClass: "九年六班" },
+      { period: 3, subject: "數學", targetClass: "七年四班" },
+      { period: 6, subject: "數學演習", targetClass: "資一乙" },
+      { period: 7, subject: "數學", targetClass: "九年七班" }
+    ]},
+    2: { dayName: "星期二", lessons: [
+      { period: 1, subject: "班會", targetClass: "資二丙" },
+      { period: 2, subject: "數學", targetClass: "七年四班" },
+      { period: 3, subject: "數學", targetClass: "九年六班" },
+      { period: 5, subject: "數學演習", targetClass: "資一乙" },
+      { period: 6, subject: "數學", targetClass: "資二丙" },
+      { period: 7, subject: "應用數學", targetClass: "資二丙" }
+    ]},
+    3: { dayName: "星期三", lessons: [
+      { period: 1, subject: "數學", targetClass: "九年六班" },
+      { period: 2, subject: "數學", targetClass: "資二丙" },
+      { period: 3, subject: "健康教育", targetClass: "九年七班" },
+      { period: 4, subject: "數學", targetClass: "九年七班" },
+      { period: 7, subject: "數學", targetClass: "資一乙" }
+    ]},
+    4: { dayName: "星期四", lessons: [
+      { period: 1, subject: "應用數學", targetClass: "資二丙" },
+      { period: 2, subject: "數學", targetClass: "九年七班" },
+      { period: 3, subject: "數學", targetClass: "七年四班" },
+      { period: 4, subject: "數學", targetClass: "廣技一丙" },
+      { period: 5, subject: "健康與護理", targetClass: "資二丙" },
+      { period: 6, subject: "健康教育", targetClass: "九年六班" }
+    ]},
+    5: { dayName: "星期五", lessons: [
+      { period: 1, subject: "數學", targetClass: "廣技一丙" },
+      { period: 2, subject: "數學", targetClass: "資一乙" },
+      { period: 3, subject: "數學", targetClass: "七年四班" },
+      { period: 4, subject: "數學", targetClass: "九年七班" },
+      { period: 5, subject: "社團" },
+      { period: 6, subject: "社團" },
+      { period: 7, subject: "數學", targetClass: "九年六班" }
     ]}
   }
 };

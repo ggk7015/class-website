@@ -15,6 +15,9 @@ import {
   faqData
 } from './config.js';
 
+// Global state for timetable mode ('class' | 'teacher')
+let currentTimetableMode = 'class';
+
 // 使用瀏覽器本地日期，避免 UTC 在台灣凌晨造成跨日誤差
 function getLocalDateStr() {
   const d = new Date();
@@ -531,10 +534,11 @@ function renderRegistrations() {
 }
 
 /**
- * 7. 渲染公開班級課表
+ * 7. 渲染雙模式課表 (Timetable: Class vs Teacher Schedule)
  */
 function initTimetable() {
   const btnModeClass = document.getElementById('btn-mode-class');
+  const btnModeTeacher = document.getElementById('btn-mode-teacher');
   const modeDescBox = document.getElementById('mode-desc-box');
   const tabsBar = document.getElementById('day-tabs-bar');
   const dayTitle = document.getElementById('current-day-title');
@@ -546,9 +550,19 @@ function initTimetable() {
   const realDay = new Date().getDay();
   let currentDay = (realDay >= 1 && realDay <= 5) ? realDay : 1;
 
-  function renderSchedule(day) {
-    btnModeClass.classList.add('active');
-    modeDescBox.innerHTML = '<span>資二丙每週課表（點選星期切換）</span>';
+  function renderSchedule(day, mode) {
+    currentTimetableMode = mode;
+
+    // Mode button toggles
+    if (mode === 'class') {
+      btnModeClass.classList.add('active');
+      btnModeTeacher.classList.remove('active');
+      modeDescBox.innerHTML = '<span>資二丙每週課表（點選星期切換）</span>';
+    } else {
+      btnModeClass.classList.remove('active');
+      btnModeTeacher.classList.add('active');
+      modeDescBox.innerHTML = '<span>導師每週授課課表（點選星期切換）</span>';
+    }
 
     // Active day tab toggle
     document.querySelectorAll('.day-tab').forEach(tab => {
@@ -558,44 +572,91 @@ function initTimetable() {
 
     // Header info
     const dayNames = { 1: "星期一", 2: "星期二", 3: "星期三", 4: "星期四", 5: "星期五" };
-    dayTitle.textContent = `${dayNames[day]} 資二丙課表`;
+    dayTitle.textContent = `${dayNames[day]} ${mode === 'class' ? '資二丙課表' : '導師課表'}`;
     todayIndicator.style.display = (day === realDay) ? 'inline-block' : 'none';
 
     lessonsList.innerHTML = '';
     const periodsInfo = timetableData.periodsInfo;
 
-    const dayData = timetableData.classSchedule[day];
-    if (!dayData) return;
+    if (mode === 'class') {
+      // 1. 資二丙班級課表
+      const dayData = timetableData.classSchedule[day];
+      if (!dayData) return;
 
-    periodsInfo.forEach(periodObj => {
-      if (periodObj.period === 'lunch') {
-        const breakCard = document.createElement('div');
-        breakCard.className = 'lesson-card break-card';
-        breakCard.innerHTML = `<span class="break-text">${periodObj.label}</span>`;
-        lessonsList.appendChild(breakCard);
-      } else {
-        const lesson = dayData.lessons.find(l => l.period === periodObj.period);
-        if (lesson) {
+      periodsInfo.forEach(periodObj => {
+        if (periodObj.period === 'lunch') {
+          const breakCard = document.createElement('div');
+          breakCard.className = 'lesson-card break-card';
+          breakCard.innerHTML = `<span class="break-text">${periodObj.label}</span>`;
+          lessonsList.appendChild(breakCard);
+        } else {
+          const lesson = dayData.lessons.find(l => l.period === periodObj.period);
+          if (lesson) {
+            const card = document.createElement('div');
+            card.className = 'lesson-card';
+            card.innerHTML = `
+              <div class="lesson-left">
+                <div class="period-badge">${lesson.period}</div>
+                <div class="lesson-info">
+                  <span class="subject-name">${escapeHtml(lesson.subject)}</span>
+                </div>
+              </div>
+            `;
+            lessonsList.appendChild(card);
+          }
+        }
+      });
+    } else {
+      // 2. 導師課表（固定顯示第 1～7 節；未授課節次保留空白）
+      const dayData = timetableData.teacherSchedule[day];
+      if (!dayData) return;
+
+      periodsInfo
+        .filter(periodObj => typeof periodObj.period === 'number' && periodObj.period <= 7)
+        .forEach(periodObj => {
+          const lesson = dayData.lessons.find(l => l.period === periodObj.period);
           const card = document.createElement('div');
           card.className = 'lesson-card';
-          card.innerHTML = `
-            <div class="lesson-left">
-              <div class="period-badge">${lesson.period}</div>
-              <div class="lesson-info">
-                <span class="subject-name">${escapeHtml(lesson.subject)}</span>
+
+          if (lesson) {
+            const lessonLabel = lesson.targetClass
+              ? `${escapeHtml(lesson.subject)}｜${escapeHtml(lesson.targetClass)}`
+              : escapeHtml(lesson.subject);
+
+            card.innerHTML = `
+              <div class="lesson-left">
+                <div class="period-badge">${lesson.period}</div>
+                <div class="lesson-info">
+                  <span class="subject-name">${lessonLabel}</span>
+                  <span class="time-range">${periodObj.time}</span>
+                </div>
               </div>
-            </div>
-          `;
+            `;
+          } else {
+            card.innerHTML = `
+              <div class="lesson-left">
+                <div class="period-badge">${periodObj.period}</div>
+                <div class="lesson-info"></div>
+              </div>
+            `;
+          }
+
           lessonsList.appendChild(card);
-        }
-      }
-    });
+        });
+    }
   }
 
+  // Mode Switch Event Listeners
   btnModeClass.addEventListener('click', () => {
     const activeTab = document.querySelector('.day-tab.active');
     const day = activeTab ? parseInt(activeTab.getAttribute('data-day'), 10) : currentDay;
-    renderSchedule(day);
+    renderSchedule(day, 'class');
+  });
+
+  btnModeTeacher.addEventListener('click', () => {
+    const activeTab = document.querySelector('.day-tab.active');
+    const day = activeTab ? parseInt(activeTab.getAttribute('data-day'), 10) : currentDay;
+    renderSchedule(day, 'teacher');
   });
 
   // Day Tab Click Handlers
@@ -603,12 +664,12 @@ function initTimetable() {
     const btn = e.target.closest('.day-tab');
     if (btn) {
       const selectedDay = parseInt(btn.getAttribute('data-day'), 10);
-      renderSchedule(selectedDay);
+      renderSchedule(selectedDay, currentTimetableMode);
     }
   });
 
   // Initial render
-  renderSchedule(currentDay);
+  renderSchedule(currentDay, 'class');
 }
 
 /**
