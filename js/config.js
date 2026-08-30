@@ -268,49 +268,49 @@ export const timetableData = {
   ],
   classSchedule: {
     1: { dayName: "星期一", lessons: [
-      { period: 1, subject: "國文" },
-      { period: 2, subject: "英文" },
-      { period: 3, subject: "數學" },
-      { period: 4, subject: "自然" },
-      { period: 5, subject: "社會" },
-      { period: 6, subject: "體育" },
-      { period: 7, subject: "彈性課程" }
+      { period: 1, subject: "美術" },
+      { period: 2, subject: "國語文" },
+      { period: 3, subject: "經濟學" },
+      { period: 4, subject: "體育" },
+      { period: 5, subject: "多媒體製作與應用" },
+      { period: 6, subject: "多媒體製作與應用" },
+      { period: 7, subject: "多媒體製作與應用" }
     ]},
     2: { dayName: "星期二", lessons: [
-      { period: 1, subject: "數學" },
-      { period: 2, subject: "國文" },
-      { period: 3, subject: "資訊科技" },
-      { period: 4, subject: "英文" },
-      { period: 5, subject: "音樂" },
-      { period: 6, subject: "自然" },
-      { period: 7, subject: "社團活動" }
+      { period: 1, subject: "班會" },
+      { period: 2, subject: "彈性學習時間" },
+      { period: 3, subject: "多元選修" },
+      { period: 4, subject: "多元選修" },
+      { period: 5, subject: "經濟學" },
+      { period: 6, subject: "數學" },
+      { period: 7, subject: "應用數學" }
     ]},
     3: { dayName: "星期三", lessons: [
-      { period: 1, subject: "英文" },
+      { period: 1, subject: "英語文" },
       { period: 2, subject: "數學" },
-      { period: 3, subject: "社會" },
-      { period: 4, subject: "國文" },
-      { period: 5, subject: "童軍" },
-      { period: 6, subject: "視覺藝術" },
-      { period: 7, subject: "班會" }
+      { period: 3, subject: "數位科技應用" },
+      { period: 4, subject: "數位科技應用" },
+      { period: 5, subject: "綜合活動" },
+      { period: 6, subject: "綜合活動" },
+      { period: 7, subject: "財務報表分析" }
     ]},
     4: { dayName: "星期四", lessons: [
-      { period: 1, subject: "自然" },
-      { period: 2, subject: "國文" },
-      { period: 3, subject: "英文聽講" },
-      { period: 4, subject: "數學" },
-      { period: 5, subject: "體育" },
-      { period: 6, subject: "家政" },
-      { period: 7, subject: "閱讀素養" }
+      { period: 1, subject: "應用數學" },
+      { period: 2, subject: "化學" },
+      { period: 3, subject: "國語文學概論" },
+      { period: 4, subject: "經濟學" },
+      { period: 5, subject: "健康與護理" },
+      { period: 6, subject: "會計學" },
+      { period: 7, subject: "財務報表分析" }
     ]},
     5: { dayName: "星期五", lessons: [
-      { period: 1, subject: "社會" },
-      { period: 2, subject: "自然" },
-      { period: 3, subject: "國文" },
-      { period: 4, subject: "數學" },
-      { period: 5, subject: "健康教育" },
-      { period: 6, subject: "英文" },
-      { period: 7, subject: "週會與宣導" }
+      { period: 1, subject: "國語文" },
+      { period: 2, subject: "國語文" },
+      { period: 3, subject: "英語文" },
+      { period: 4, subject: "體育" },
+      { period: 5, subject: "經濟學" },
+      { period: 6, subject: "生活英語會話" },
+      { period: 7, subject: "會計學" }
     ]}
   }
 };
