@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#2563eb">
   <meta name="description" content="資二丙班級資訊站 - 提供學生與家長便利的班級公告、宣導事項、重要規定、報名專區、課表與重要日程入口。">
+  <link rel="manifest" href="./public/manifest.json">
   <title>資二丙班級資訊站</title>
 
   <!-- Google Fonts: Noto Sans TC & Inter -->
@@ -45,6 +46,18 @@
         </button>
         <h2 class="subpage-title" id="subpage-title-text">頁面名稱</h2>
       </div>
+
+      <!-- Global Search Bar -->
+      <div class="search-bar-container" id="search-bar-container">
+        <div class="search-input-wrapper">
+          <svg class="search-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="search" id="global-search" class="search-input" placeholder="搜尋公告、日程、規定..." aria-label="全站搜尋" autocomplete="off">
+          <button id="btn-search-clear" class="search-clear-btn hidden" aria-label="清除搜尋">✕</button>
+        </div>
+      </div>
     </header>
 
     <!-- Main Content Container (Page Views) -->
@@ -52,6 +65,15 @@
 
       <!-- ================= PAGE 1: HOME ================= -->
       <section id="view-home" class="page-view view-active">
+
+        <!-- Search Results (hidden by default) -->
+        <div id="search-results" class="search-results-container hidden">
+          <div class="search-results-header">
+            <span class="search-results-count" id="search-results-count"></span>
+            <button id="btn-clear-search" class="btn-clear-search">清除搜尋</button>
+          </div>
+          <div id="search-results-list" class="search-results-list"></div>
+        </div>
 
         <!-- 6 Main Feature Entry Cards Grid (2 cols x 3 rows) -->
         <div class="feature-grid">

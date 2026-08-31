@@ -26,7 +26,8 @@
   --warning-bg: #fffbeb;
 
   /* Layout & Spacing */
-  --max-width: 480px;             /* Mobile frame optimal max-width */
+  --max-width: 100%;              /* Fluid by default */
+  --container-padding: 1rem;
   --border-radius-lg: 14px;
   --border-radius-md: 10px;
   --border-radius-sm: 6px;
@@ -37,9 +38,9 @@
   --shadow-md: 0 3px 12px -1px rgba(37, 99, 235, 0.07), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
   --shadow-lg: 0 6px 20px -3px rgba(37, 99, 235, 0.12);
 
-  /* Typography */
+  /* Typography - Fluid scaling */
   --font-family: 'Noto Sans TC', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  --font-size-base: 16px;         /* 16px minimum for mobile comfort */
+  --font-size-base: clamp(14px, 2.5vw + 10px, 16px);
 }
 
 /* 2. Global Resets & Base Setup */
@@ -53,7 +54,8 @@
 html {
   font-size: var(--font-size-base);
   scroll-behavior: smooth;
-  background-color: #cbd5e1;     /* Outer backdrop for desktop preview */
+  background-color: #cbd5e1;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -62,29 +64,30 @@ body {
   background-color: var(--bg-main);
   line-height: 1.5;
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   justify-content: center;
   overflow-x: hidden;
 }
 
-/* 3. Main App Container (Mobile Shell) */
+/* 3. Main App Container (Fluid) */
 .app-container {
   width: 100%;
   max-width: var(--max-width);
   min-height: 100vh;
+  min-height: 100dvh;
   background-color: var(--bg-main);
   display: flex;
   flex-direction: column;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.12);
   position: relative;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 /* 4. Global App Header (Compact Mobile Height) */
 .app-header {
   background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
   color: #ffffff;
-  padding: 0.85rem 1rem 0.95rem;
+  padding: 0.85rem 0.75rem 0.95rem;
   border-bottom-left-radius: 16px;
   border-bottom-right-radius: 16px;
   box-shadow: var(--shadow-md);
@@ -92,6 +95,7 @@ body {
   top: 0;
   z-index: 100;
   transition: all 0.2s ease;
+  overflow: hidden;
 }
 
 /* Home Header Content */
@@ -186,6 +190,179 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+/* ================= Search Bar ================= */
+.search-bar-container {
+  display: flex;
+  align-items: center;
+  padding: 0.4rem 0.75rem 0.45rem;
+  background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-color) 100%);
+  overflow: hidden;
+}
+
+.search-input-wrapper {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: var(--border-radius-pill);
+  padding: 0.3rem 0.5rem;
+  min-height: 34px;
+  overflow: hidden;
+}
+
+.search-icon {
+  flex-shrink: 0;
+  width: 14px;
+  height: 14px;
+  color: var(--text-muted);
+}
+
+.search-input {
+  flex: 1;
+  min-width: 0;
+  border: none;
+  background: none;
+  font-family: inherit;
+  font-size: 0.82rem;
+  color: var(--text-main);
+  outline: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-input::placeholder {
+  color: var(--text-light);
+}
+
+.search-clear-btn {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Search Results */
+.search-results-container {
+  margin-bottom: 1rem;
+}
+
+.search-results-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+}
+
+.search-results-count {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.btn-clear-search {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0.3rem 0.5rem;
+}
+
+.search-results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.search-result-item {
+  background-color: var(--bg-card);
+  border: 1px solid #e2e8f0;
+  border-radius: var(--border-radius-md);
+  padding: 0.7rem 0.8rem;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.search-result-item:active {
+  border-color: var(--primary-border);
+}
+
+.search-result-category {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+}
+
+.search-result-title {
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.15rem;
+}
+
+.search-result-excerpt {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.search-highlight {
+  background-color: #fef08a;
+  color: var(--text-main);
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+/* ================= Print Styles ================= */
+@media print {
+  .app-header,
+  .app-footer,
+  .search-bar-container,
+  .quick-access-section,
+  .home-quick-info,
+  .feature-grid,
+  .btn-back-home {
+    display: none !important;
+  }
+
+  .app-container {
+    max-width: 100%;
+    box-shadow: none;
+  }
+
+  .page-view {
+    display: block !important;
+  }
+
+  .announcement-card {
+    break-inside: avoid;
+  }
+}
+
+/* ================= Reduced Motion ================= */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* Helper Class to Toggle Elements */
@@ -1462,6 +1639,14 @@ body {
   transform: scale(0.97);
   opacity: 0.95;
 }
+
+.btn-secondary-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 44px;
+  background-color: var(--primary-light);
   color: var(--primary-color);
   text-decoration: none;
   font-size: 0.95rem;
@@ -1697,21 +1882,301 @@ body {
   color: #64748b;
 }
 
-/* 9. Responsive Adjustments for Desktop Container */
+/* 9. Responsive Adjustments */
+
+/* Small phones (< 360px) */
+@media (max-width: 359px) {
+  .app-container {
+    font-size: 0.9rem;
+  }
+
+  .announcement-card {
+    padding: 0.7rem;
+  }
+
+  .feature-card {
+    min-height: 110px;
+  }
+
+  .feature-title {
+    font-size: 0.82rem;
+  }
+
+  .site-title {
+    font-size: 1.1rem;
+  }
+
+  .quick-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Regular phones (360px - 639px) - Default mobile styles apply */
+
+/* Large phones / small tablets (640px - 768px) */
 @media (min-width: 640px) {
+  :root {
+    --container-padding: 1.25rem;
+    --border-radius-lg: 16px;
+    --border-radius-md: 12px;
+  }
+
   body {
-    padding: 1.5rem 0;
+    padding: 1rem;
+    align-items: flex-start;
   }
 
   .app-container {
-    border-radius: 20px;
-    height: 844px;
+    border-radius: 24px;
     min-height: auto;
-    overflow-y: auto;
+    max-width: 640px;
+    margin: 0 auto;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
   }
 
   .app-header {
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-top-left-radius: 24px;
+    border-top-right-radius: 24px;
+    padding: 1.2rem 1.5rem 1.3rem;
+  }
+
+  .site-title {
+    font-size: 1.5rem;
+  }
+
+  .site-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .search-bar-container {
+    padding: 0.5rem 1.25rem 0.55rem;
+  }
+
+  .search-input-wrapper {
+    min-height: 38px;
+  }
+
+  .feature-grid {
+    gap: 0.85rem;
+  }
+
+  .feature-card {
+    min-height: 140px;
+    padding: 1rem;
+  }
+
+  .feature-title {
+    font-size: 0.9rem;
+  }
+
+  .feature-desc {
+    font-size: 0.78rem;
+  }
+
+  .quick-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.5rem;
+  }
+
+  .announcement-card {
+    padding: 1rem;
+  }
+
+  .section-title {
+    font-size: 1.05rem;
+  }
+
+  .home-quick-info {
+    padding: 0.9rem 1.1rem;
+  }
+
+  .day-group-box {
+    padding: 1rem;
+  }
+
+  .footer-title {
+    font-size: 0.92rem;
+  }
+
+  .footer-copy {
+    font-size: 0.78rem;
+  }
+}
+
+/* Tablets (769px - 1024px) */
+@media (min-width: 769px) {
+  :root {
+    --container-padding: 1.5rem;
+  }
+
+  body {
+    padding: 1.5rem;
+  }
+
+  .app-container {
+    max-width: 768px;
+    border-radius: 28px;
+  }
+
+  .app-header {
+    border-top-left-radius: 28px;
+    border-top-right-radius: 28px;
+    padding: 1.5rem 2rem 1.6rem;
+  }
+
+  .site-title {
+    font-size: 1.7rem;
+  }
+
+  .feature-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .feature-card {
+    min-height: 160px;
+    padding: 1.2rem;
+  }
+
+  .feature-icon {
+    font-size: 2rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .feature-title {
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .feature-desc {
+    font-size: 0.82rem;
+  }
+
+  .quick-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+
+  .announcement-card {
+    padding: 1.2rem;
+  }
+
+  .ann-title {
+    font-size: 1rem;
+  }
+
+  .ann-content {
+    font-size: 0.92rem;
+  }
+
+  .guide-card {
+    padding: 1rem 1.2rem;
+  }
+
+  .guide-card-body {
+    font-size: 0.92rem;
+  }
+
+  .event-month-header {
+    font-size: 1rem;
+  }
+
+  .event-item {
+    padding: 0.9rem;
+  }
+
+  .faq-question-btn {
+    font-size: 1rem;
+  }
+
+  .faq-answer-panel {
+    font-size: 0.92rem;
+  }
+
+  .leave-section-card {
+    padding: 1.2rem;
+  }
+
+  .data-val {
+    font-size: 0.92rem;
+  }
+}
+
+/* Desktop (1025px+) */
+@media (min-width: 1025px) {
+  body {
+    padding: 2rem;
+  }
+
+  .app-container {
+    max-width: 960px;
+    border-radius: 32px;
+  }
+
+  .app-header {
+    border-top-left-radius: 32px;
+    border-top-right-radius: 32px;
+    padding: 1.8rem 2.5rem 1.9rem;
+  }
+
+  .site-title {
+    font-size: 2rem;
+  }
+
+  .feature-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+  }
+
+  .feature-card {
+    min-height: 180px;
+    padding: 1.5rem;
+  }
+
+  .feature-icon {
+    font-size: 2.2rem;
+  }
+
+  .feature-title {
+    font-size: 1rem;
+  }
+
+  .feature-desc {
+    font-size: 0.85rem;
+  }
+
+  .quick-grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.6rem;
+  }
+
+  .announcement-card {
+    padding: 1.4rem;
+  }
+
+  .guide-card {
+    padding: 1.2rem 1.4rem;
+  }
+
+  .section-title {
+    font-size: 1.15rem;
+  }
+
+  .ann-title {
+    font-size: 1.05rem;
+  }
+
+  .ann-content {
+    font-size: 0.95rem;
+  }
+
+  .app-footer {
+    padding: 1.5rem 2rem calc(1.5rem + env(safe-area-inset-bottom));
+  }
+}
+
+/* Very large desktops (1440px+) */
+@media (min-width: 1440px) {
+  .app-container {
+    max-width: 1100px;
   }
 }

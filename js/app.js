@@ -83,6 +83,7 @@ function hasAnnouncementLifecycleExpired(announcement, todayStr) {
 document.addEventListener('DOMContentLoaded', () => {
   initSiteInfo();
   initNavigation();
+  initSearch();
   renderAnnouncements();
   renderGuidelines();
   renderRules();
@@ -956,4 +957,201 @@ function escapeHtml(str) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
+}
+
+/**
+ * Utility: Highlight search term in text
+ */
+function highlightText(text, term) {
+  if (!term || !text) return escapeHtml(text);
+  const escaped = escapeHtml(text);
+  const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+  return escaped.replace(regex, '<span class="search-highlight">$1</span>');
+}
+
+/**
+ * 11. 全站搜尋功能
+ */
+function initSearch() {
+  const searchInput = document.getElementById('global-search');
+  const clearBtn = document.getElementById('btn-search-clear');
+  const clearSearchBtn = document.getElementById('btn-clear-search');
+  const searchResults = document.getElementById('search-results');
+  const searchResultsList = document.getElementById('search-results-list');
+  const searchResultsCount = document.getElementById('search-results-count');
+
+  if (!searchInput) return;
+
+  let searchTimeout;
+
+  function performSearch(query) {
+    if (!query || query.length < 2) {
+      searchResults.classList.add('hidden');
+      return;
+    }
+
+    const results = [];
+    const q = query.toLowerCase();
+
+    // Search announcements
+    announcementsData.forEach(ann => {
+      const text = `${ann.title} ${ann.content} ${ann.category}`.toLowerCase();
+      if (text.includes(q)) {
+        results.push({
+          type: '公告',
+          title: ann.title,
+          excerpt: ann.content.substring(0, 80) + '...',
+          viewId: 'view-announcements',
+          data: ann
+        });
+      }
+    });
+
+    // Search guidelines
+    guidelinesData.forEach(g => {
+      const text = `${g.title} ${g.summary} ${g.details.join(' ')}`.toLowerCase();
+      if (text.includes(q)) {
+        results.push({
+          type: '宣導',
+          title: g.title,
+          excerpt: g.summary,
+          viewId: 'view-guidelines',
+          data: g
+        });
+      }
+    });
+
+    // Search rules
+    rulesData.forEach(r => {
+      const text = `${r.title} ${r.summary || ''}`.toLowerCase();
+      if (text.includes(q)) {
+        results.push({
+          type: '規定',
+          title: r.title,
+          excerpt: r.summary,
+          viewId: 'view-rules',
+          data: r
+        });
+      }
+    });
+
+    // Search events
+    eventsData.timeline.forEach(e => {
+      const text = `${e.title} ${e.description}`.toLowerCase();
+      if (text.includes(q)) {
+        results.push({
+          type: '日程',
+          title: e.title,
+          excerpt: `${e.dateDisplay} - ${e.description}`,
+          viewId: 'view-events',
+          data: e
+        });
+      }
+    });
+
+    // Search FAQ
+    faqData.forEach(f => {
+      const text = `${f.question} ${f.answer}`.toLowerCase();
+      if (text.includes(q)) {
+        results.push({
+          type: 'FAQ',
+          title: f.question,
+          excerpt: f.answer,
+          viewId: 'view-faq',
+          data: f
+        });
+      }
+    });
+
+    // Search registrations
+    registrationsData.forEach(r => {
+      const text = `${r.title} ${r.category} ${r.summary}`.toLowerCase();
+      if (text.includes(q)) {
+        results.push({
+          type: '報名',
+          title: r.title,
+          excerpt: r.summary.substring(0, 80) + '...',
+          viewId: 'view-registrations',
+          data: r
+        });
+      }
+    });
+
+    // Render results
+    searchResultsCount.textContent = `找到 ${results.length} 筆結果`;
+
+    if (results.length === 0) {
+      searchResultsList.innerHTML = '<p class="action-hint" style="text-align:center;padding:1rem;">找不到符合的內容</p>';
+    } else {
+      searchResultsList.innerHTML = results.slice(0, 20).map(r => `
+        <div class="search-result-item" data-view="${r.viewId}">
+          <div class="search-result-category">${r.type}</div>
+          <div class="search-result-title">${highlightText(r.title, query)}</div>
+          <div class="search-result-excerpt">${highlightText(r.excerpt, query)}</div>
+        </div>
+      `).join('');
+
+      // Bind click handlers
+      searchResultsList.querySelectorAll('.search-result-item').forEach(item => {
+        item.addEventListener('click', () => {
+          const viewId = item.getAttribute('data-view');
+          // Switch to home first, then to target view
+          const headerHomeContent = document.getElementById('header-home-content');
+          const headerSubpageContent = document.getElementById('header-subpage-content');
+          const subpageTitleText = document.getElementById('subpage-title-text');
+          const allViews = document.querySelectorAll('.page-view');
+          const viewTitles = {
+            'view-announcements': '最新公告',
+            'view-guidelines': '宣導事項',
+            'view-rules': '重要規定',
+            'view-registrations': '線上辦理',
+            'view-timetable': '課表查詢',
+            'view-events': '重要日程',
+            'view-leave': '請假說明',
+            'view-faq': '常見問題 FAQ'
+          };
+
+          allViews.forEach(view => {
+            if (view.id === viewId) {
+              view.classList.remove('hidden');
+              view.classList.add('view-active');
+            } else {
+              view.classList.add('hidden');
+              view.classList.remove('view-active');
+            }
+          });
+
+          headerHomeContent.classList.add('hidden');
+          headerSubpageContent.classList.remove('hidden');
+          subpageTitleText.textContent = viewTitles[viewId] || '詳細資訊';
+          history.pushState({ view: viewId }, '', `#${viewId}`);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      });
+    }
+
+    searchResults.classList.remove('hidden');
+  }
+
+  searchInput.addEventListener('input', (e) => {
+    clearTimeout(searchTimeout);
+    const val = e.target.value.trim();
+    clearBtn.classList.toggle('hidden', !val);
+    searchTimeout = setTimeout(() => performSearch(val), 300);
+  });
+
+  clearBtn.addEventListener('click', () => {
+    searchInput.value = '';
+    clearBtn.classList.add('hidden');
+    searchResults.classList.add('hidden');
+    searchInput.focus();
+  });
+
+  if (clearSearchBtn) {
+    clearSearchBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      clearBtn.classList.add('hidden');
+      searchResults.classList.add('hidden');
+    });
+  }
 }
