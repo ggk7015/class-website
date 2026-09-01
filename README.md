@@ -43,7 +43,7 @@
 
 ```bash
 # 複製專案
-git clone https://github.com/jianrx0203/class-website.git
+git clone https://github.com/ggk7015/class-website.git
 cd class-website
 
 # 安裝依賴
@@ -69,7 +69,7 @@ node server.js
 3. Source 選擇 "GitHub Actions"
 4. 推送程式碼後自動部署
 
-網址: `https://jianrx0203.github.io/class-website/`
+網址: `https://ggk7015.github.io/class-website/`
 
 ### Tailscale 部署
 
@@ -133,4 +133,4 @@ MIT License
 
 ## 聯絡方式
 
-- GitHub: [@jianrx0203](https://github.com/jianrx0203)
+- GitHub: [@ggk7015](https://github.com/ggk7015)
