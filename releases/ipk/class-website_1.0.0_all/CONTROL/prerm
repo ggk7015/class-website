@@ -1,0 +1,5 @@
+#!/bin/sh
+# Pre-remove script for class-website
+
+# Stop uhttpd
+/etc/init.d/uhttpd stop

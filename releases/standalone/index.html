@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="description" content="資二丙班級資訊站 - 提供學生與家長便利的班級公告、宣導事項、重要規定、報名專區、課表與重要日程入口。">
+  <link rel="manifest" href="/assets/manifest-Cdic4376.json">
+  <title>資二丙班級資訊站</title>
+
+  <!-- Google Fonts: Noto Sans TC & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Main Stylesheet -->
+  <script type="module" crossorigin src="/assets/index-CgSwvxk4.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-B4btGUsV.css">
+</head>
+<body>
+
+  <!-- App Wrapper for Mobile Frame Simulation & Responsive Container -->
+  <div id="app" class="app-container">
+
+    <!-- Global App Header -->
+    <header class="app-header" id="app-header">
+      <!-- Home Header Content -->
+      <div id="header-home-content" class="header-content header-home-mode">
+        <div class="header-top-row">
+          <div class="header-title-left">
+            <span class="header-logo-icon" id="site-logo-icon">🏫</span>
+            <h1 class="site-title" id="site-title-text">資二丙班級資訊站</h1>
+          </div>
+          <span class="class-badge-pill" id="site-class-badge">資二丙班</span>
+        </div>
+        <p class="site-subtitle" id="site-subtitle-text">班級公告、學習與生活資訊</p>
+      </div>
+
+      <!-- Subpage Header Content (Sticky Navigation) -->
+      <div id="header-subpage-content" class="header-content header-subpage-mode hidden">
+        <button id="btn-back" class="btn-back-home" aria-label="返回首頁">
+          <svg class="back-icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          <span>返回首頁</span>
+        </button>
+        <h2 class="subpage-title" id="subpage-title-text">頁面名稱</h2>
+      </div>
+
+      <!-- Global Search Bar -->
+      <div class="search-bar-container" id="search-bar-container">
+        <div class="search-input-wrapper">
+          <svg class="search-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="search" id="global-search" class="search-input" placeholder="搜尋公告、日程、規定..." aria-label="全站搜尋" autocomplete="off">
+          <button id="btn-search-clear" class="search-clear-btn hidden" aria-label="清除搜尋">✕</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Container (Page Views) -->
+    <main class="app-main" id="app-main">
+
+      <!-- ================= PAGE 1: HOME ================= -->
+      <section id="view-home" class="page-view view-active">
+
+        <!-- Search Results (hidden by default) -->
+        <div id="search-results" class="search-results-container hidden">
+          <div class="search-results-header">
+            <span class="search-results-count" id="search-results-count"></span>
+            <button id="btn-clear-search" class="btn-clear-search">清除搜尋</button>
+          </div>
+          <div id="search-results-list" class="search-results-list"></div>
+        </div>
+
+        <!-- 6 Main Feature Entry Cards Grid (2 cols x 3 rows) -->
+        <div class="feature-grid">
+
+          <!-- Card 1: 最新公告 -->
+          <button class="feature-card" data-target-view="view-announcements" aria-label="📢 最新公告 查看近期班級重要通知">
+            <div class="card-badge-container">
+              <span class="card-icon">📢</span>
+            </div>
+            <div class="card-text-group">
+              <h3 class="card-title">最新公告</h3>
+              <p class="card-desc">查看近期班級重要通知</p>
+            </div>
+            <div class="card-arrow">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+          </button>
+
+          <!-- Card 2: 課表查詢 -->
+          <button class="feature-card" data-target-view="view-timetable" aria-label="📅 課表查詢 查看班級與導師課表">
+            <div class="card-badge-container">
+              <span class="card-icon">📅</span>
+            </div>
+            <div class="card-text-group">
+              <h3 class="card-title">課表查詢</h3>
+              <p class="card-desc">查看班級與導師課表</p>
+            </div>
+            <div class="card-arrow">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+          </button>
+
+          <!-- Card 3: 重要日程 -->
+          <button class="feature-card" data-target-view="view-events" aria-label="🗓️ 重要日程 查看段考、作業檢查與學校行事">
+            <div class="card-badge-container">
+              <span class="card-icon">🗓️</span>
+            </div>
+            <div class="card-text-group">
+              <h3 class="card-title">重要日程</h3>
+              <p class="card-desc">查看段考與行事曆</p>
+            </div>
+            <div class="card-arrow">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+          </button>
+
+          <!-- Card 4: 宣導事項 -->
+          <button class="feature-card" data-target-view="view-guidelines" aria-label="📌 宣導事項 查看校園與生活重要宣導">
+            <div class="card-badge-container">
+              <span class="card-icon">📌</span>
+            </div>
+            <div class="card-text-group">
+              <h3 class="card-title">宣導事項</h3>
+              <p class="card-desc">查看校園與生活重要宣導</p>
+            </div>
+            <div class="card-arrow">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+          </button>
+
+          <!-- Card 5: 報名專區 -->
+          <button class="feature-card" data-target-view="view-registrations" aria-label="📝 線上辦理 報名、填表、查詢與線上系統">
+            <div class="card-badge-container">
+              <span class="card-icon">📝</span>
+            </div>
+            <div class="card-text-group">
+              <h3 class="card-title">線上辦理</h3>
+              <p class="card-desc">報名、填表、查詢與線上系統</p>
+            </div>
+            <div class="card-arrow">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+          </button>
+
+          <!-- Card 6: 重要規定 -->
+          <button class="feature-card" data-target-view="view-rules" aria-label="📖 重要規定 查看校規與重要辦法">
+            <div class="card-badge-container">
+              <span class="card-icon">📖</span>
+            </div>
+            <div class="card-text-group">
+              <h3 class="card-title">重要規定</h3>
+              <p class="card-desc">查看校規與重要辦法</p>
+            </div>
+            <div class="card-arrow">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+          </button>
+
+        </div>
+
+        <!-- Quick Access Section (移至六格卡片下方之快速功能) -->
+        <div class="quick-access-section">
+          <span class="quick-access-label">⚡ 快速功能</span>
+          <div class="quick-access-buttons">
+            <button class="quick-btn" data-target-view="view-leave">
+              <span class="quick-btn-icon">📝</span>
+              <span>請假說明</span>
+            </button>
+            <button class="quick-btn" data-target-view="view-faq">
+              <span class="quick-btn-icon">❓</span>
+              <span>常見問題</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Teacher Message Bar -->
+        <div class="home-quick-info">
+          <div class="quick-info-header">
+            <span class="quick-icon">💬</span>
+            <span class="quick-title">班級導師叮嚀</span>
+          </div>
+          <p class="quick-text" id="home-teacher-notice">
+            請家長與同學定期瀏覽本站公告。若有個人緊急事項，請透過班級 LINE 官方帳號傳遞訊息。
+          </p>
+        </div>
+
+      </section>
+
+      <!-- ================= PAGE 2: 最新公告 ================= -->
+      <section id="view-announcements" class="page-view hidden">
+        <div class="view-intro-bar">
+          <span>📢 班級最新公告與重要通知</span>
+        </div>
+
+        <!-- Announcements List Container -->
+        <div id="announcements-list" class="announcements-container">
+          <!-- Dynamically populated by JS -->
+        </div>
+
+        <!-- Historical Announcements（預設收合） -->
+        <div class="ann-history-group">
+          <button
+            type="button"
+            id="ann-history-toggle"
+            class="ann-history-toggle"
+            aria-expanded="false"
+            aria-controls="announcements-history-list"
+          >
+            <span>🗃️ 歷史公告</span>
+            <span class="ann-history-chevron" aria-hidden="true">⌄</span>
+          </button>
+          <div id="announcements-history-list" class="ann-history-list" hidden></div>
+        </div>
+      </section>
+
+      <!-- ================= PAGE 3: 宣導事項 ================= -->
+      <section id="view-guidelines" class="page-view hidden">
+        <div class="view-intro-bar">
+          <span>📌 校園安全、交通與生活重要宣導</span>
+        </div>
+
+        <!-- Guidelines Expandable Cards Container -->
+        <div id="guidelines-container" class="guidelines-container">
+          <!-- Dynamically populated by JS -->
+        </div>
+      </section>
+
+      <!-- ================= PAGE 4: 重要規定 ================= -->
+      <section id="view-rules" class="page-view hidden">
+        <div class="view-intro-bar">
+          <span>📖 學校重要規章與辦法</span>
+        </div>
+
+        <!-- Rules Cards Container -->
+        <div id="rules-container" class="rules-container">
+          <!-- Dynamically populated by JS -->
+        </div>
+      </section>
+
+      <!-- ================= PAGE 5: 報名專區 ================= -->
+      <section id="view-registrations" class="page-view hidden">
+        <div class="view-intro-bar">
+          <span>📝 檢定報名、校內外競賽與營隊活動</span>
+        </div>
+
+        <div class="registrations-wrapper">
+          <!-- Section A: 即將截止 -->
+          <div class="reg-group">
+            <h3 class="reg-group-title urgent-title">🔥 即將截止報名</h3>
+            <div id="reg-list-urgent" class="reg-cards-list"></div>
+          </div>
+
+          <!-- Section B: 開放報名中 -->
+          <div class="reg-group">
+            <h3 class="reg-group-title open-title">✅ 開放報名中</h3>
+            <div id="reg-list-open" class="reg-cards-list"></div>
+          </div>
+
+          <!-- Section C: 已截止／歷史辦理（預設收合） -->
+          <div class="reg-group reg-history-group">
+            <button
+              type="button"
+              id="reg-history-toggle"
+              class="reg-history-toggle"
+              aria-expanded="false"
+              aria-controls="reg-list-closed"
+            >
+              <span>⌛ 已截止／歷史辦理</span>
+              <span class="reg-history-chevron" aria-hidden="true">⌄</span>
+            </button>
+            <div id="reg-list-closed" class="reg-history-list" hidden></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= PAGE 6: 班級課表查詢 ================= -->
+      <section id="view-timetable" class="page-view hidden">
+        <div class="timetable-container">
+
+          <!-- Mode Switcher Tabs: ［資二丙課表］ | ［導師課表］ -->
+          <div class="timetable-mode-switcher">
+            <button class="timetable-mode-btn active" id="btn-mode-class">［資二丙課表］</button>
+            <button class="timetable-mode-btn" id="btn-mode-teacher">［導師課表］</button>
+          </div>
+
+          <div class="mode-desc-box" id="mode-desc-box">
+            <span>資二丙每週課表（點選星期切換）</span>
+          </div>
+
+          <!-- Day Selector Tabs (Mon ~ Fri) -->
+          <div class="day-tabs-bar" id="day-tabs-bar">
+            <button class="day-tab active" data-day="1">週一</button>
+            <button class="day-tab" data-day="2">週二</button>
+            <button class="day-tab" data-day="3">週三</button>
+            <button class="day-tab" data-day="4">週四</button>
+            <button class="day-tab" data-day="5">週五</button>
+          </div>
+
+          <!-- Active Day Header -->
+          <div class="timetable-day-header">
+            <span class="day-title" id="current-day-title">星期一 課表</span>
+            <span class="day-badge" id="today-indicator">今日課表</span>
+          </div>
+
+          <!-- Day Lesson Timeline / Cards Container -->
+          <div id="timetable-lessons-list" class="timetable-lessons-list">
+            <!-- Dynamically populated by JS -->
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= PAGE 7: 重要日程 ================= -->
+      <section id="view-events" class="page-view hidden">
+        <div class="events-container">
+
+          <!-- Highlight Box: 下一個重要日程 (自動由 JS 算出一筆最近的正式/重要日程) -->
+          <div class="next-event-card">
+            <div class="next-event-header">
+              <span class="next-badge">🎯 下一個重要日程</span>
+            </div>
+            <h3 class="next-event-title" id="next-event-title">加載中...</h3>
+            <div class="next-event-date" id="next-event-date">📅 日期讀取中</div>
+            <p class="next-event-note" id="next-event-note"></p>
+          </div>
+
+          <!-- 分類篩選 Filter Chips -->
+          <div class="events-filter-bar" id="events-filter-bar">
+            <button class="filter-chip active" data-category="all">全部</button>
+            <button class="filter-chip" data-category="exam">📝 段考</button>
+            <button class="filter-chip" data-category="homework">📚 作業抽查</button>
+            <button class="filter-chip" data-category="club">👥 社團</button>
+            <button class="filter-chip" data-category="assessment">🏅 測驗與檢定</button>
+          </div>
+
+          <!-- 月份分組容器 (依月份展開／收合) -->
+          <div id="events-month-groups" class="events-month-groups">
+            <!-- Dynamically populated by JS -->
+          </div>
+
+          <!-- 頁面底部：學校官方完整行事曆連結 -->
+          <div class="official-calendar-card">
+            <h4 class="calendar-card-title">找不到需要的學校行事？</h4>
+            <p class="calendar-card-desc">本站僅精選整理與學生較相關的重要日程。</p>
+            <a id="btn-school-calendar" href="https://www.ymsh.hcc.edu.tw/ischool/rfile/41a4a72b41dc498a3c74d5eb8d8784c6" target="_blank" rel="noopener noreferrer" class="btn-calendar-link">
+              <span>🏫 查看學校完整行事曆 →</span>
+            </a>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= PAGE 8: 請假說明 ================= -->
+      <section id="view-leave" class="page-view hidden">
+        <div class="leave-card-container">
+
+          <!-- Prepared Info Box -->
+          <div class="leave-section-card">
+            <div class="section-card-header">
+              <span class="section-icon">📋</span>
+              <h3 class="section-title">請假前請準備以下資料</h3>
+            </div>
+
+            <div class="leave-data-grid">
+              <div class="data-item">
+                <span class="data-label">學生姓名</span>
+                <span class="data-val">填寫學生完整姓名</span>
+              </div>
+              <div class="data-item">
+                <span class="data-label">請假日期</span>
+                <span class="data-val">指定請假起訖日期</span>
+              </div>
+              <div class="data-item data-item-full">
+                <span class="data-label">請假節次選項</span>
+                <div class="options-tag-group">
+                  <span class="option-pill highlight">全天</span>
+                  <span class="option-pill">第 1 節</span>
+                  <span class="option-pill">第 2 節</span>
+                  <span class="option-pill">第 3 節</span>
+                  <span class="option-pill">第 4 節</span>
+                  <span class="option-pill">第 5 節</span>
+                  <span class="option-pill">第 6 節</span>
+                  <span class="option-pill">第 7 節</span>
+                </div>
+              </div>
+              <div class="data-item data-item-full">
+                <span class="data-label">假別選項</span>
+                <div class="options-tag-group">
+                  <span class="option-pill type-pill">事假</span>
+                  <span class="option-pill type-pill">病假</span>
+                  <span class="option-pill type-pill">其他</span>
+                </div>
+              </div>
+              <div class="data-item data-item-full">
+                <span class="data-label">請假原因</span>
+                <span class="data-val">簡述請假具體事由</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reminders Card -->
+          <div class="leave-section-card warning-accent">
+            <div class="section-card-header">
+              <span class="section-icon">ℹ️</span>
+              <h3 class="section-title">請假重要提醒</h3>
+            </div>
+            <ul class="reminders-list">
+              <li>
+                <span class="bullet-icon">🔹</span>
+                <span class="reminder-text"><strong>事假：</strong>請盡量事先提出。</span>
+              </li>
+              <li>
+                <span class="bullet-icon">🔹</span>
+                <span class="reminder-text"><strong>病假：</strong>可於返校後補辦請假程序。</span>
+              </li>
+              <li>
+                <span class="bullet-icon">🔹</span>
+                <span class="reminder-text"><strong>核假權限：</strong>導師核假權限為 <strong>1 天以內</strong>；超過 1 天須依學校規定辦理。</span>
+              </li>
+              <li>
+                <span class="bullet-icon">🔹</span>
+                <span class="reminder-text"><strong>就醫證明：</strong>病假超過 1 天時，請依規定準備相關就醫證明（例如收據或藥袋）。</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- V1 尚未開放線上請假入口 -->
+          <div class="leave-action-area" hidden>
+            <a id="btn-go-leave" href="#" target="_blank" rel="noopener noreferrer" class="btn-primary-action">
+              <span>前往請假</span>
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+            <p class="action-hint">點擊將開啟線上請假表單頁面</p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= PAGE 9: 常見問題 FAQ ================= -->
+      <section id="view-faq" class="page-view hidden">
+        <div class="view-intro-bar">
+          <span>❓ 常見問題解答（點擊展開詳細說明）</span>
+        </div>
+
+        <!-- Accordion Container -->
+        <div id="faq-accordion-container" class="faq-accordion">
+          <!-- Dynamically populated by JS -->
+        </div>
+
+        <div class="faq-contact-box">
+          <p>沒找到您需要的答案？請透過班級 LINE 官方帳號私訊導師詢問。</p>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Global App Footer -->
+    <footer class="app-footer">
+      <p class="footer-title" id="footer-site-name">資二丙班級資訊站</p>
+      <p class="footer-copy">&copy; 2026 資二丙 班級導師與全體學生版權所有</p>
+    </footer>
+
+  </div>
+
+  <!-- JavaScript Module Bundle Entry Point -->
+</body>
+</html>
