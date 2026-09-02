@@ -1,0 +1,475 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="description" content="鞈?銝蝝?閮? - ??摮貊??振?瑚噶?拍??剔??砍??恐撠???閬?摰????玨銵刻????亦??亙??>
+  <link rel="manifest" href="/assets/manifest-Cdic4376.json">
+  <title>鞈?銝蝝?閮?</title>
+
+  <!-- Google Fonts: Noto Sans TC & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Main Stylesheet -->
+  <script type="module" crossorigin src="/assets/index-CgSwvxk4.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-B4btGUsV.css">
+</head>
+<body>
+
+  <!-- App Wrapper for Mobile Frame Simulation & Responsive Container -->
+  <div id="app" class="app-container">
+
+    <!-- Global App Header -->
+    <header class="app-header" id="app-header">
+      <!-- Home Header Content -->
+      <div id="header-home-content" class="header-content header-home-mode">
+        <div class="header-top-row">
+          <div class="header-title-left">
+            <span class="header-logo-icon" id="site-logo-icon">?</span>
+            <h1 class="site-title" id="site-title-text">鞈?銝蝝?閮?</h1>
+          </div>
+          <span class="class-badge-pill" id="site-class-badge">鞈?銝</span>
+        </div>
+        <p class="site-subtitle" id="site-subtitle-text">?剔??砍??飛蝧??暑鞈?</p>
+      </div>
+
+      <!-- Subpage Header Content (Sticky Navigation) -->
+      <div id="header-subpage-content" class="header-content header-subpage-mode hidden">
+        <button id="btn-back" class="btn-back-home" aria-label="餈?擐?">
+          <svg class="back-icon" viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          <span>餈?擐?</span>
+        </button>
+        <h2 class="subpage-title" id="subpage-title-text">??迂</h2>
+      </div>
+
+      <!-- Global Search Bar -->
+      <div class="search-bar-container" id="search-bar-container">
+        <div class="search-input-wrapper">
+          <svg class="search-icon" viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="search" id="global-search" class="search-input" placeholder="???砍??蝔?摰?.." aria-label="?函???" autocomplete="off">
+          <button id="btn-search-clear" class="search-clear-btn hidden" aria-label="皜??">??/button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Container (Page Views) -->
+    <main class="app-main" id="app-main">
+
+      <!-- ================= PAGE 1: HOME ================= -->
+      <section id="view-home" class="page-view view-active">
+
+        <!-- Search Results (hidden by default) -->
+        <div id="search-results" class="search-results-container hidden">
+          <div class="search-results-header">
+            <span class="search-results-count" id="search-results-count"></span>
+            <button id="btn-clear-search" class="btn-clear-search">皜??</button>
+          </div>
+          <div id="search-results-list" class="search-results-list"></div>
+        </div>
+
+        <!-- 6 Main Feature Entry Cards Grid (2 cols x 3 rows) -->
+        <div class="feature-grid">
+
+          <!-- Card 1: ??啣??-->
+          <button class="feature-card" data-target-view="view-announcements" aria-label="? ??啣???亦?餈??剔????">
+            <div class="card-badge-container">
+              <span class="card-icon">?</span>
+            </div>
+            <div class="card-text-group">
+              <h3 class="card-title">??啣??/h3>
+              <p class="card-desc">?亦?餈??剔????</p>
+            </div>
+            <div class="card-arrow">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+          </button>
+
+          <!-- Card 2: 隤脰”?亥岷 -->
+          <button class="feature-card" data-target-view="view-timetable" aria-label="?? 隤脰”?亥岷 ?亦??剔???撣怨玨銵?>
+            <div class="card-badge-container">
+              <span class="card-icon">??</span>
+            </div>
+            <div class="card-text-group">
+              <h3 class="card-title">隤脰”?亥岷</h3>
+              <p class="card-desc">?亦??剔???撣怨玨銵?/p>
+            </div>
+            <div class="card-arrow">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+          </button>
+
+          <!-- Card 3: ???亦? -->
+          <button class="feature-card" data-target-view="view-events" aria-label="??儭????亦? ?亦?畾菔?璆剜炎?亥?摮豢銵?">
+            <div class="card-badge-container">
+              <span class="card-icon">??儭?/span>
+            </div>
+            <div class="card-text-group">
+              <h3 class="card-title">???亦?</h3>
+              <p class="card-desc">?亦?畾菔?銵???/p>
+            </div>
+            <div class="card-arrow">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+          </button>
+
+          <!-- Card 4: 摰??鈭? -->
+          <button class="feature-card" data-target-view="view-guidelines" aria-label="?? 摰??鈭? ?亦??∪???瘣駁?閬恐撠?>
+            <div class="card-badge-container">
+              <span class="card-icon">??</span>
+            </div>
+            <div class="card-text-group">
+              <h3 class="card-title">摰??鈭?</h3>
+              <p class="card-desc">?亦??∪???瘣駁?閬恐撠?/p>
+            </div>
+            <div class="card-arrow">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+          </button>
+
+          <!-- Card 5: ?勗?撠? -->
+          <button class="feature-card" data-target-view="view-registrations" aria-label="?? 蝺?颲衣? ?勗??‵銵具閰Ｚ?蝺?蝟餌絞">
+            <div class="card-badge-container">
+              <span class="card-icon">??</span>
+            </div>
+            <div class="card-text-group">
+              <h3 class="card-title">蝺?颲衣?</h3>
+              <p class="card-desc">?勗??‵銵具閰Ｚ?蝺?蝟餌絞</p>
+            </div>
+            <div class="card-arrow">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+          </button>
+
+          <!-- Card 6: ??閬? -->
+          <button class="feature-card" data-target-view="view-rules" aria-label="?? ??閬? ?亦??∟???閬齒瘜?>
+            <div class="card-badge-container">
+              <span class="card-icon">??</span>
+            </div>
+            <div class="card-text-group">
+              <h3 class="card-title">??閬?</h3>
+              <p class="card-desc">?亦??∟???閬齒瘜?/p>
+            </div>
+            <div class="card-arrow">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+          </button>
+
+        </div>
+
+        <!-- Quick Access Section (蝘餉?剜?∠?銝銋翰???? -->
+        <div class="quick-access-section">
+          <span class="quick-access-label">??敹恍???/span>
+          <div class="quick-access-buttons">
+            <button class="quick-btn" data-target-view="view-leave">
+              <span class="quick-btn-icon">??</span>
+              <span>隢?隤芣?</span>
+            </button>
+            <button class="quick-btn" data-target-view="view-faq">
+              <span class="quick-btn-icon">??/span>
+              <span>撣貉???</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Quick Teacher Message Bar -->
+        <div class="home-quick-info">
+          <div class="quick-info-header">
+            <span class="quick-icon">?</span>
+            <span class="quick-title">?剔?撠葦?桀?</span>
+          </div>
+          <p class="quick-text" id="home-teacher-notice">
+            隢振?瑁??飛摰??汗?祉??砍???犖蝺乩???隢??剔? LINE 摰撣唾??喲?閮??
+          </p>
+        </div>
+
+      </section>
+
+      <!-- ================= PAGE 2: ??啣??================= -->
+      <section id="view-announcements" class="page-view hidden">
+        <div class="view-intro-bar">
+          <span>? ?剔???啣?????</span>
+        </div>
+
+        <!-- Announcements List Container -->
+        <div id="announcements-list" class="announcements-container">
+          <!-- Dynamically populated by JS -->
+        </div>
+
+        <!-- Historical Announcements嚗?閮剜?? -->
+        <div class="ann-history-group">
+          <button
+            type="button"
+            id="ann-history-toggle"
+            class="ann-history-toggle"
+            aria-expanded="false"
+            aria-controls="announcements-history-list"
+          >
+            <span>??儭?甇瑕?砍?</span>
+            <span class="ann-history-chevron" aria-hidden="true">??/span>
+          </button>
+          <div id="announcements-history-list" class="ann-history-list" hidden></div>
+        </div>
+      </section>
+
+      <!-- ================= PAGE 3: 摰??鈭? ================= -->
+      <section id="view-guidelines" class="page-view hidden">
+        <div class="view-intro-bar">
+          <span>?? ?∪?摰?漱???暑??摰??</span>
+        </div>
+
+        <!-- Guidelines Expandable Cards Container -->
+        <div id="guidelines-container" class="guidelines-container">
+          <!-- Dynamically populated by JS -->
+        </div>
+      </section>
+
+      <!-- ================= PAGE 4: ??閬? ================= -->
+      <section id="view-rules" class="page-view hidden">
+        <div class="view-intro-bar">
+          <span>?? 摮豢??閬??齒瘜?/span>
+        </div>
+
+        <!-- Rules Cards Container -->
+        <div id="rules-container" class="rules-container">
+          <!-- Dynamically populated by JS -->
+        </div>
+      </section>
+
+      <!-- ================= PAGE 5: ?勗?撠? ================= -->
+      <section id="view-registrations" class="page-view hidden">
+        <div class="view-intro-bar">
+          <span>?? 瑼Ｗ??勗???批?蝡嗉魚???暑??/span>
+        </div>
+
+        <div class="registrations-wrapper">
+          <!-- Section A: ?喳??芣迫 -->
+          <div class="reg-group">
+            <h3 class="reg-group-title urgent-title">? ?喳??芣迫?勗?</h3>
+            <div id="reg-list-urgent" class="reg-cards-list"></div>
+          </div>
+
+          <!-- Section B: ??勗?銝?-->
+          <div class="reg-group">
+            <h3 class="reg-group-title open-title">????勗?銝?/h3>
+            <div id="reg-list-open" class="reg-cards-list"></div>
+          </div>
+
+          <!-- Section C: 撌脫甇ｇ?甇瑕颲衣?嚗?閮剜?? -->
+          <div class="reg-group reg-history-group">
+            <button
+              type="button"
+              id="reg-history-toggle"
+              class="reg-history-toggle"
+              aria-expanded="false"
+              aria-controls="reg-list-closed"
+            >
+              <span>??撌脫甇ｇ?甇瑕颲衣?</span>
+              <span class="reg-history-chevron" aria-hidden="true">??/span>
+            </button>
+            <div id="reg-list-closed" class="reg-history-list" hidden></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= PAGE 6: ?剔?隤脰”?亥岷 ================= -->
+      <section id="view-timetable" class="page-view hidden">
+        <div class="timetable-container">
+
+          <!-- Mode Switcher Tabs: 嚗餉?鈭?隤脰”嚗?| 嚗餃?撣怨玨銵剁播 -->
+          <div class="timetable-mode-switcher">
+            <button class="timetable-mode-btn active" id="btn-mode-class">嚗餉?鈭?隤脰”嚗?/button>
+            <button class="timetable-mode-btn" id="btn-mode-teacher">嚗餃?撣怨玨銵剁播</button>
+          </div>
+
+          <div class="mode-desc-box" id="mode-desc-box">
+            <span>鞈?銝??梯玨銵剁?暺????嚗?/span>
+          </div>
+
+          <!-- Day Selector Tabs (Mon ~ Fri) -->
+          <div class="day-tabs-bar" id="day-tabs-bar">
+            <button class="day-tab active" data-day="1">?曹?</button>
+            <button class="day-tab" data-day="2">?曹?</button>
+            <button class="day-tab" data-day="3">?曹?</button>
+            <button class="day-tab" data-day="4">?勗?</button>
+            <button class="day-tab" data-day="5">?曹?</button>
+          </div>
+
+          <!-- Active Day Header -->
+          <div class="timetable-day-header">
+            <span class="day-title" id="current-day-title">??銝 隤脰”</span>
+            <span class="day-badge" id="today-indicator">隞隤脰”</span>
+          </div>
+
+          <!-- Day Lesson Timeline / Cards Container -->
+          <div id="timetable-lessons-list" class="timetable-lessons-list">
+            <!-- Dynamically populated by JS -->
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= PAGE 7: ???亦? ================= -->
+      <section id="view-events" class="page-view hidden">
+        <div class="events-container">
+
+          <!-- Highlight Box: 銝???閬蝔?(?芸???JS 蝞銝蝑?餈?甇??/???亦?) -->
+          <div class="next-event-card">
+            <div class="next-event-header">
+              <span class="next-badge">? 銝???閬蝔?/span>
+            </div>
+            <h3 class="next-event-title" id="next-event-title">??銝?..</h3>
+            <div class="next-event-date" id="next-event-date">?? ?交?霈?葉</div>
+            <p class="next-event-note" id="next-event-note"></p>
+          </div>
+
+          <!-- ??蝭拚 Filter Chips -->
+          <div class="events-filter-bar" id="events-filter-bar">
+            <button class="filter-chip active" data-category="all">?券</button>
+            <button class="filter-chip" data-category="exam">?? 畾菔?/button>
+            <button class="filter-chip" data-category="homework">?? 雿平?賣</button>
+            <button class="filter-chip" data-category="club">? 蝷曉?</button>
+            <button class="filter-chip" data-category="assessment">?? 皜祇??炎摰?/button>
+          </div>
+
+          <!-- ?遢??摰孵 (靘?隞賢????嗅?) -->
+          <div id="events-month-groups" class="events-month-groups">
+            <!-- Dynamically populated by JS -->
+          </div>
+
+          <!-- ?摨嚗飛?∪??孵??渲?鈭???? -->
+          <div class="official-calendar-card">
+            <h4 class="calendar-card-title">?曆??圈?閬?摮豢銵?嚗?/h4>
+            <p class="calendar-card-desc">?祉??移?豢??摮貊?頛?????亦???/p>
+            <a id="btn-school-calendar" href="https://www.ymsh.hcc.edu.tw/ischool/rfile/41a4a72b41dc498a3c74d5eb8d8784c6" target="_blank" rel="noopener noreferrer" class="btn-calendar-link">
+              <span>? ?亦?摮豢摰銵?????/span>
+            </a>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= PAGE 8: 隢?隤芣? ================= -->
+      <section id="view-leave" class="page-view hidden">
+        <div class="leave-card-container">
+
+          <!-- Prepared Info Box -->
+          <div class="leave-section-card">
+            <div class="section-card-header">
+              <span class="section-icon">??</span>
+              <h3 class="section-title">隢???皞?隞乩?鞈?</h3>
+            </div>
+
+            <div class="leave-data-grid">
+              <div class="data-item">
+                <span class="data-label">摮貊?憪?</span>
+                <span class="data-val">憛怠神摮貊?摰憪?</span>
+              </div>
+              <div class="data-item">
+                <span class="data-label">隢??交?</span>
+                <span class="data-val">??隢?韏瑁??交?</span>
+              </div>
+              <div class="data-item data-item-full">
+                <span class="data-label">隢?蝭甈⊿??/span>
+                <div class="options-tag-group">
+                  <span class="option-pill highlight">?典予</span>
+                  <span class="option-pill">蝚?1 蝭</span>
+                  <span class="option-pill">蝚?2 蝭</span>
+                  <span class="option-pill">蝚?3 蝭</span>
+                  <span class="option-pill">蝚?4 蝭</span>
+                  <span class="option-pill">蝚?5 蝭</span>
+                  <span class="option-pill">蝚?6 蝭</span>
+                  <span class="option-pill">蝚?7 蝭</span>
+                </div>
+              </div>
+              <div class="data-item data-item-full">
+                <span class="data-label">??賊?</span>
+                <div class="options-tag-group">
+                  <span class="option-pill type-pill">鈭?</span>
+                  <span class="option-pill type-pill">??</span>
+                  <span class="option-pill type-pill">?嗡?</span>
+                </div>
+              </div>
+              <div class="data-item data-item-full">
+                <span class="data-label">隢???</span>
+                <span class="data-val">蝪∟膩隢??琿?鈭</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reminders Card -->
+          <div class="leave-section-card warning-accent">
+            <div class="section-card-header">
+              <span class="section-icon">?對?</span>
+              <h3 class="section-title">隢?????</h3>
+            </div>
+            <ul class="reminders-list">
+              <li>
+                <span class="bullet-icon">?</span>
+                <span class="reminder-text"><strong>鈭?嚗?/strong>隢?????箝?/span>
+              </li>
+              <li>
+                <span class="bullet-icon">?</span>
+                <span class="reminder-text"><strong>??嚗?/strong>?舀餈敺?颲西???摨?/span>
+              </li>
+              <li>
+                <span class="bullet-icon">?</span>
+                <span class="reminder-text"><strong>?詨?甈?嚗?/strong>撠葦?詨?甈???<strong>1 憭拐誑??/strong>嚗???1 憭拚?靘飛?∟?摰齒??/span>
+              </li>
+              <li>
+                <span class="bullet-icon">?</span>
+                <span class="reminder-text"><strong>撠梢霅?嚗?/strong>??頞? 1 憭拇?嚗?靘?摰???停?怨???靘??嗆??鋡???/span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- V1 撠?蝺?隢??亙 -->
+          <div class="leave-action-area" hidden>
+            <a id="btn-go-leave" href="#" target="_blank" rel="noopener noreferrer" class="btn-primary-action">
+              <span>??隢?</span>
+              <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
+            <p class="action-hint">暺?撠???銝??”?桅???/p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= PAGE 9: 撣貉??? FAQ ================= -->
+      <section id="view-faq" class="page-view hidden">
+        <div class="view-intro-bar">
+          <span>??撣貉???閫??嚗????底蝝啗牧??</span>
+        </div>
+
+        <!-- Accordion Container -->
+        <div id="faq-accordion-container" class="faq-accordion">
+          <!-- Dynamically populated by JS -->
+        </div>
+
+        <div class="faq-contact-box">
+          <p>瘝?唳?閬?蝑?嚗????剔? LINE 摰撣唾?蝘?撠葦閰Ｗ???/p>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Global App Footer -->
+    <footer class="app-footer">
+      <p class="footer-title" id="footer-site-name">鞈?銝蝝?閮?</p>
+      <p class="footer-copy">&copy; 2026 鞈?銝??剔?撠葦?擃飛??甈???/p>
+    </footer>
+
+  </div>
+
+  <!-- JavaScript Module Bundle Entry Point -->
+</body>
+</html>
+
