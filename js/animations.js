@@ -12,6 +12,28 @@
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /**
+   * Theme Toggle (Day/Night Mode)
+   */
+  function initThemeToggle() {
+    const toggleBtn = document.getElementById('theme-toggle');
+    if (!toggleBtn) return;
+
+    // Load saved theme or default to dark
+    const savedTheme = localStorage.getItem('class2c_theme');
+    if (savedTheme === 'light') {
+      document.body.classList.add('light-mode');
+    } else {
+      document.body.classList.remove('light-mode');
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      document.body.classList.toggle('light-mode');
+      const isLight = document.body.classList.contains('light-mode');
+      localStorage.setItem('class2c_theme', isLight ? 'light' : 'dark');
+    });
+  }
+
+  /**
    * Page Load Animation (Motion)
    */
   function initPageLoad() {
@@ -359,6 +381,7 @@
    * Initialize All Animations
    */
   function initAllAnimations() {
+    initThemeToggle();
     initPageLoad();
     initScrollReveal();
     initCardHover();

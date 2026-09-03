@@ -148,6 +148,48 @@ body {
   flex-shrink: 0;
 }
 
+.header-right-group {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-shrink: 0;
+}
+
+.theme-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+  flex-shrink: 0;
+  font-size: 1rem;
+  line-height: 1;
+}
+.theme-toggle-btn:hover {
+  background: rgba(255, 255, 255, 0.35);
+  transform: scale(1.1);
+}
+.theme-toggle-btn:active {
+  transform: scale(0.95);
+}
+.theme-icon-sun,
+.theme-icon-moon {
+  display: none;
+}
+body.light-mode .theme-icon-sun {
+  display: inline;
+}
+body:not(.light-mode) .theme-icon-moon {
+  display: inline;
+}
+
 .site-subtitle {
   font-size: 0.82rem;
   color: rgba(255, 255, 255, 0.88);
@@ -2419,4 +2461,46 @@ html {
   .app-container { opacity: 1; }
   .reveal { opacity: 1; transform: none; }
   .event-item { opacity: 1; transform: none; }
+}
+
+/* ============================================================
+   LIGHT MODE (Day Theme)
+   ============================================================ */
+body.light-mode {
+  --bg-main: #ffffff;
+  --bg-card: #f8fafc;
+  --bg-card-hover: #f1f5f9;
+  --text-main: #1e293b;
+  --text-muted: #64748b;
+  --text-light: #94a3b8;
+  --border: #e2e8f0;
+}
+body.light-mode .app-header {
+  background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+}
+body.light-mode .app-container {
+  background-color: #ffffff;
+}
+body.light-mode .feature-card,
+body.light-mode .quick-action-card,
+body.light-mode .guide-card,
+body.light-mode .announcement-card,
+body.light-mode .faq-item,
+body.light-mode .event-item,
+body.light-mode .rule-link-card,
+body.light-mode .reg-card,
+body.light-mode .leave-section-card,
+body.light-mode .day-group-box {
+  background-color: #ffffff;
+  border-color: #e2e8f0;
+}
+body.light-mode .search-input {
+  background-color: #ffffff;
+  border-color: #e2e8f0;
+  color: #1e293b;
+}
+body.light-mode .toast {
+  background: #ffffff;
+  color: #1e293b;
+  border-color: #e2e8f0;
 }
