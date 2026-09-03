@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#1e293b">
+  <title>資二丙班級資訊站 — 後台管理</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>/* ADMIN_CSS_PLACEHOLDER */</style>
+</head>
+<body>
+  <div class="admin-app">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <span class="sidebar-logo">🏫</span>
+        <div class="sidebar-brand">
+          <h1 class="sidebar-title">後台管理</h1>
+          <span class="sidebar-subtitle">資二丙班級資訊站</span>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <button class="nav-item active" data-panel="dashboard">
+          <span class="nav-icon">📊</span>
+          <span class="nav-label">總覽</span>
+        </button>
+        <button class="nav-item" data-panel="announcements">
+          <span class="nav-icon">📢</span>
+          <span class="nav-label">公告管理</span>
+        </button>
+        <button class="nav-item" data-panel="faq">
+          <span class="nav-icon">❓</span>
+          <span class="nav-label">FAQ 管理</span>
+        </button>
+        <button class="nav-item" data-panel="events">
+          <span class="nav-icon">🗓️</span>
+          <span class="nav-label">日程管理</span>
+        </button>
+        <button class="nav-item" data-panel="guidelines">
+          <span class="nav-icon">📌</span>
+          <span class="nav-label">宣導管理</span>
+        </button>
+        <button class="nav-item" data-panel="rules">
+          <span class="nav-icon">📖</span>
+          <span class="nav-label">規定管理</span>
+        </button>
+        <button class="nav-item" data-panel="registrations">
+          <span class="nav-icon">📝</span>
+          <span class="nav-label">報名管理</span>
+        </button>
+        <button class="nav-divider"></button>
+        <button class="nav-item" data-panel="ai">
+          <span class="nav-icon">🤖</span>
+          <span class="nav-label">AI 助理</span>
+        </button>
+        <button class="nav-item" data-panel="theme">
+          <span class="nav-icon">🎨</span>
+          <span class="nav-label">主題設計</span>
+        </button>
+        <button class="nav-item" data-panel="export">
+          <span class="nav-icon">💾</span>
+          <span class="nav-label">匯出/匯入</span>
+        </button>
+      </nav>
+      <div class="sidebar-footer">
+        <a href="index.html" class="sidebar-link" target="_blank">
+          <span>🔗</span>
+          <span>預覽前台</span>
+        </a>
+      </div>
+    </aside>
+
+    <!-- Mobile Header -->
+    <header class="mobile-header" id="mobileHeader">
+      <button class="btn-menu" id="btnMenu" aria-label="選單">
+        <span></span><span></span><span></span>
+      </button>
+      <span class="mobile-title">後台管理</span>
+      <a href="index.html" class="btn-preview" target="_blank">🔗 預覽</a>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+
+      <!-- Dashboard Panel -->
+      <section class="panel active" id="panel-dashboard">
+        <div class="panel-header">
+          <h2 class="panel-title">📊 總覽</h2>
+          <p class="panel-desc">管理班級資訊站所有內容</p>
+        </div>
+        <div class="stat-grid">
+          <div class="stat-card ripple-host" data-nav="announcements">
+            <div class="stat-icon">📢</div>
+            <div class="stat-info">
+              <span class="stat-value" id="stat-announcements">0</span>
+              <span class="stat-label">則公告</span>
+            </div>
+          </div>
+          <div class="stat-card ripple-host" data-nav="faq">
+            <div class="stat-icon">❓</div>
+            <div class="stat-info">
+              <span class="stat-value" id="stat-faq">0</span>
+              <span class="stat-label">筆 FAQ</span>
+            </div>
+          </div>
+          <div class="stat-card ripple-host" data-nav="events">
+            <div class="stat-icon">🗓️</div>
+            <div class="stat-info">
+              <span class="stat-value" id="stat-events">0</span>
+              <span class="stat-label">筆日程</span>
+            </div>
+          </div>
+          <div class="stat-card ripple-host" data-nav="guidelines">
+            <div class="stat-icon">📌</div>
+            <div class="stat-info">
+              <span class="stat-value" id="stat-guidelines">0</span>
+              <span class="stat-label">筆宣導</span>
+            </div>
+          </div>
+        </div>
+        <div class="quick-actions">
+          <h3 class="section-label">⚡ 快速操作</h3>
+          <div class="action-grid">
+            <button class="action-btn ripple-host" data-nav="announcements">
+              <span>➕</span> 新增公告
+            </button>
+            <button class="action-btn ripple-host" data-nav="faq">
+              <span>➕</span> 新增 FAQ
+            </button>
+            <button class="action-btn ripple-host" data-nav="events">
+              <span>➕</span> 新增日程
+            </button>
+            <button class="action-btn ripple-host" data-nav="ai">
+              <span>🤖</span> AI 輔助
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Announcements Panel -->
+      <section class="panel" id="panel-announcements">
+        <div class="panel-header">
+          <h2 class="panel-title">📢 公告管理</h2>
+          <button class="btn-primary ripple-host" id="btn-add-announcement">➕ 新增公告</button>
+        </div>
+        <div class="content-list" id="list-announcements"></div>
+      </section>
+
+      <!-- FAQ Panel -->
+      <section class="panel" id="panel-faq">
+        <div class="panel-header">
+          <h2 class="panel-title">❓ FAQ 管理</h2>
+          <button class="btn-primary ripple-host" id="btn-add-faq">➕ 新增 FAQ</button>
+        </div>
+        <div class="content-list" id="list-faq"></div>
+      </section>
+
+      <!-- Events Panel -->
+      <section class="panel" id="panel-events">
+        <div class="panel-header">
+          <h2 class="panel-title">🗓️ 日程管理</h2>
+          <button class="btn-primary ripple-host" id="btn-add-event">➕ 新增日程</button>
+        </div>
+        <div class="content-list" id="list-events"></div>
+      </section>
+
+      <!-- Guidelines Panel -->
+      <section class="panel" id="panel-guidelines">
+        <div class="panel-header">
+          <h2 class="panel-title">📌 宣導管理</h2>
+          <button class="btn-primary ripple-host" id="btn-add-guideline">➕ 新增宣導</button>
+        </div>
+        <div class="content-list" id="list-guidelines"></div>
+      </section>
+
+      <!-- Rules Panel -->
+      <section class="panel" id="panel-rules">
+        <div class="panel-header">
+          <h2 class="panel-title">📖 規定管理</h2>
+          <button class="btn-primary ripple-host" id="btn-add-rule">➕ 新增規定</button>
+        </div>
+        <div class="content-list" id="list-rules"></div>
+      </section>
+
+      <!-- Registrations Panel -->
+      <section class="panel" id="panel-registrations">
+        <div class="panel-header">
+          <h2 class="panel-title">📝 報名管理</h2>
+          <button class="btn-primary ripple-host" id="btn-add-registration">➕ 新增報名</button>
+        </div>
+        <div class="content-list" id="list-registrations"></div>
+      </section>
+
+      <!-- AI Panel -->
+      <section class="panel" id="panel-ai">
+        <div class="panel-header">
+          <h2 class="panel-title">🤖 AI 助理</h2>
+          <p class="panel-desc">使用 AI 輔助生成公告、FAQ 等內容</p>
+        </div>
+        <div class="ai-container">
+          <div class="ai-provider-select">
+            <label class="form-label">選擇 AI 服務</label>
+            <div class="provider-grid">
+              <button class="provider-btn active" data-provider="gemini">
+                <span class="provider-icon">✦</span>
+                <span>Gemini</span>
+              </button>
+              <button class="provider-btn" data-provider="gpt">
+                <span class="provider-icon">💬</span>
+                <span>ChatGPT</span>
+              </button>
+              <button class="provider-btn" data-provider="manus">
+                <span class="provider-icon">🧠</span>
+                <span>Manus</span>
+              </button>
+              <button class="provider-btn" data-provider="claude">
+                <span class="provider-icon">🔮</span>
+                <span>Claude</span>
+              </button>
+              <button class="provider-btn" data-provider="deepseek">
+                <span class="provider-icon">🔍</span>
+                <span>DeepSeek</span>
+              </button>
+              <button class="provider-btn" data-provider="custom">
+                <span class="provider-icon">⚙️</span>
+                <span>自訂 API</span>
+              </button>
+            </div>
+          </div>
+          <div class="ai-config" id="ai-config">
+            <div class="form-group">
+              <label class="form-label">API 金鑰</label>
+              <input type="password" class="form-input" id="ai-api-key" placeholder="輸入 API Key...">
+            </div>
+            <div class="form-group" id="custom-endpoint-group" style="display:none">
+              <label class="form-label">API 端點</label>
+              <input type="text" class="form-input" id="ai-endpoint" placeholder="https://api.example.com/v1/chat/completions">
+            </div>
+            <div class="form-group">
+              <label class="form-label">模型選擇</label>
+              <select class="form-select" id="ai-model">
+                <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
+                <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
+              </select>
+            </div>
+          </div>
+          <div class="ai-workspace">
+            <div class="ai-template-select">
+              <label class="form-label">快速模板</label>
+              <div class="template-tags">
+                <button class="template-tag" data-template="announcement">📢 公告</button>
+                <button class="template-tag" data-template="faq">❓ FAQ</button>
+                <button class="template-tag" data-template="event">🗓️ 日程</button>
+                <button class="template-tag" data-template="guideline">📌 宣導</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label">需求描述</label>
+              <textarea class="form-textarea" id="ai-prompt" rows="4" placeholder="描述您想要生成的內容，例如：&#10;「幫我寫一則關於家長日的公告，日期是10月15日，需要家長簽名回條」"></textarea>
+            </div>
+            <button class="btn-ai-generate ripple-host" id="btn-ai-generate">
+              <span class="btn-icon">✦</span>
+              <span>AI 生成</span>
+              <span class="loading-dots" style="display:none"><span>.</span><span>.</span><span>.</span></span>
+            </button>
+            <div class="ai-result" id="ai-result" style="display:none">
+              <div class="ai-result-header">
+                <span>生成結果</span>
+                <div class="ai-result-actions">
+                  <button class="btn-sm" id="btn-ai-copy">📋 複製</button>
+                  <button class="btn-sm" id="btn-ai-apply">✅ 套用</button>
+                  <button class="btn-sm" id="btn-ai-regenerate">🔄 重新生成</button>
+                </div>
+              </div>
+              <div class="ai-result-content" id="ai-result-content" contenteditable="true"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Theme Panel -->
+      <section class="panel" id="panel-theme">
+        <div class="panel-header">
+          <h2 class="panel-title">🎨 主題設計</h2>
+          <p class="panel-desc">自訂網站色彩與樣式</p>
+        </div>
+        <div class="theme-container">
+          <div class="theme-section">
+            <h3 class="theme-section-title">🎨 主色調</h3>
+            <div class="color-grid">
+              <div class="color-item">
+                <label class="form-label">主色</label>
+                <div class="color-input-wrap">
+                  <input type="color" class="color-input" id="theme-primary" value="#2563eb">
+                  <span class="color-hex" id="theme-primary-hex">#2563eb</span>
+                </div>
+              </div>
+              <div class="color-item">
+                <label class="form-label">深色</label>
+                <div class="color-input-wrap">
+                  <input type="color" class="color-input" id="theme-primary-dark" value="#1d4ed8">
+                  <span class="color-hex" id="theme-primary-dark-hex">#1d4ed8</span>
+                </div>
+              </div>
+              <div class="color-item">
+                <label class="form-label">背景色</label>
+                <div class="color-input-wrap">
+                  <input type="color" class="color-input" id="theme-bg" value="#f8fafc">
+                  <span class="color-hex" id="theme-bg-hex">#f8fafc</span>
+                </div>
+              </div>
+              <div class="color-item">
+                <label class="form-label">卡片色</label>
+                <div class="color-input-wrap">
+                  <input type="color" class="color-input" id="theme-card" value="#ffffff">
+                  <span class="color-hex" id="theme-card-hex">#ffffff</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="theme-section">
+            <h3 class="theme-section-title">📝 文字色彩</h3>
+            <div class="color-grid">
+              <div class="color-item">
+                <label class="form-label">主文字</label>
+                <div class="color-input-wrap">
+                  <input type="color" class="color-input" id="theme-text" value="#1e293b">
+                  <span class="color-hex" id="theme-text-hex">#1e293b</span>
+                </div>
+              </div>
+              <div class="color-item">
+                <label class="form-label">次要文字</label>
+                <div class="color-input-wrap">
+                  <input type="color" class="color-input" id="theme-text-muted" value="#64748b">
+                  <span class="color-hex" id="theme-text-muted-hex">#64748b</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="theme-section">
+            <h3 class="theme-section-title">🎯 狀態色彩</h3>
+            <div class="color-grid">
+              <div class="color-item">
+                <label class="form-label">危險/重要</label>
+                <div class="color-input-wrap">
+                  <input type="color" class="color-input" id="theme-danger" value="#ef4444">
+                  <span class="color-hex" id="theme-danger-hex">#ef4444</span>
+                </div>
+              </div>
+              <div class="color-item">
+                <label class="form-label">成功</label>
+                <div class="color-input-wrap">
+                  <input type="color" class="color-input" id="theme-success" value="#10b981">
+                  <span class="color-hex" id="theme-success-hex">#10b981</span>
+                </div>
+              </div>
+              <div class="color-item">
+                <label class="form-label">警告</label>
+                <div class="color-input-wrap">
+                  <input type="color" class="color-input" id="theme-warning" value="#f59e0b">
+                  <span class="color-hex" id="theme-warning-hex">#f59e0b</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="theme-section">
+            <h3 class="theme-section-title">✨ 預設主題</h3>
+            <div class="preset-grid">
+              <button class="preset-btn" data-preset="default">
+                <span class="preset-preview" style="background: linear-gradient(135deg, #2563eb, #1d4ed8)"></span>
+                <span>經典藍</span>
+              </button>
+              <button class="preset-btn" data-preset="green">
+                <span class="preset-preview" style="background: linear-gradient(135deg, #10b981, #059669)"></span>
+                <span>自然綠</span>
+              </button>
+              <button class="preset-btn" data-preset="purple">
+                <span class="preset-preview" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed)"></span>
+                <span>優雅紫</span>
+              </button>
+              <button class="preset-btn" data-preset="rose">
+                <span class="preset-preview" style="background: linear-gradient(135deg, #f43f5e, #e11d48)"></span>
+                <span>玫瑰紅</span>
+              </button>
+              <button class="preset-btn" data-preset="dark">
+                <span class="preset-preview" style="background: linear-gradient(135deg, #1e293b, #0f172a)"></span>
+                <span>暗黑</span>
+              </button>
+            </div>
+          </div>
+          <div class="theme-actions">
+            <button class="btn-primary ripple-host" id="btn-apply-theme">✅ 套用主題</button>
+            <button class="btn-secondary ripple-host" id="btn-reset-theme">🔄 重設預設</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Export/Import Panel -->
+      <section class="panel" id="panel-export">
+        <div class="panel-header">
+          <h2 class="panel-title">💾 匯出 / 匯入</h2>
+          <p class="panel-desc">備份或還原所有資料</p>
+        </div>
+        <div class="export-container">
+          <div class="export-section">
+            <h3 class="section-label">📤 匯出資料</h3>
+            <p class="export-desc">將所有內容匯出為 JSON 檔案，可用於備份或遷移。</p>
+            <button class="btn-primary ripple-host" id="btn-export-json">📥 匯出 JSON</button>
+          </div>
+          <div class="export-section">
+            <h3 class="section-label">📥 匯入資料</h3>
+            <p class="export-desc">從 JSON 檔案還原內容。此操作將覆蓋現有資料。</p>
+            <div class="file-upload-zone" id="file-upload-zone">
+              <input type="file" id="file-import" accept=".json" style="display:none">
+              <span class="upload-icon">📁</span>
+              <span class="upload-text">點擊或拖曳 JSON 檔案至此</span>
+            </div>
+          </div>
+          <div class="export-section">
+            <h3 class="section-label">🔗 生成前台靜態頁面</h3>
+            <p class="export-desc">將目前資料合併至前台 HTML，產生可獨立部署的靜態頁面。</p>
+            <button class="btn-primary ripple-host" id="btn-generate-static">📄 生成靜態頁面</button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Modal Overlay -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal" id="modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">編輯項目</h3>
+        <button class="modal-close" id="modal-close">✕</button>
+      </div>
+      <div class="modal-body" id="modal-body"></div>
+      <div class="modal-footer">
+        <button class="btn-secondary" id="modal-cancel">取消</button>
+        <button class="btn-primary" id="modal-save">儲存</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <script>/* ADMIN_JS_PLACEHOLDER */</script>
+</body>
+</html>
