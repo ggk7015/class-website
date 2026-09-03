@@ -29,6 +29,10 @@
 - XSS 防護 - 所有動態內容皆經轉義處理
 - 安全標頭 - CSP、X-Frame-Options 等安全設定
 
+### 動畫系統
+- **Anime.js v4** - Scroll Observer 滾動觸發、Timeline 動畫序列
+- **Motion** - animate() 元素動畫、spring 物理彈簧效果
+
 ## 技術棧
 
 | 技術 | 用途 |
@@ -36,6 +40,8 @@
 | HTML5 | 語義化標記 |
 | CSS3 | 響應式設計、CSS Grid、Flexbox |
 | JavaScript ES6+ | 模組化、SPA 路由 |
+| Anime.js v4 | Scroll Observer、Timeline 動畫序列 |
+| Motion | animate()、spring 物理動畫 |
 | Node.js | 靜態檔案伺服器 |
 | Vite | 開發工具、打包優化 |
 
@@ -69,7 +75,7 @@ node server.js
 3. Source 選擇 "GitHub Actions"
 4. 推送程式碼後自動部署
 
-網址: `https://ggk7015.github.io/class-website/`
+網址: `https://ggk7015.github.io/classwebsite/`
 
 ### Tailscale 部署
 
@@ -90,6 +96,7 @@ class-website/
 │   └── style.css       # 完整樣式表
 ├── js/
 │   ├── app.js          # 主要應用程式邏輯
+│   ├── animations.js   # 動畫引擎 (Anime.js v4 + Motion)
 │   └── config.js       # 資料配置
 ├── public/
 │   └── manifest.json   # PWA 配置
@@ -100,6 +107,20 @@ class-website/
 ├── package.json        # 專案配置
 └── README.md           # 本檔案
 ```
+
+## 動畫系統
+
+### Anime.js v4
+| 功能 | 用途 |
+|------|------|
+| Scroll Observer | 滾動觸發區塊淡入動畫 |
+| Timeline | 多元素序列動畫編排 |
+
+### Motion
+| 功能 | 用途 |
+|------|------|
+| animate() | 頁面載入、圖示跳動、水波紋、徽章脈動、FAQ展開、骨架屏、Toast通知、標題光澤 |
+| spring | 卡片懸停抬升、點擊縮放的物理彈簧效果 |
 
 ## 設計系統
 
@@ -118,6 +139,13 @@ class-website/
 - 響應式斷點: 640px, 769px, 1025px, 1440px
 
 ## 更新日誌
+
+### v1.1.0 (2026-09-04)
+- ✅ 整合 Anime.js v4 動畫引擎
+- ✅ 整合 Motion 動畫引擎
+- ✅ 替換所有 CSS keyframes 為庫驅動動畫
+- ✅ 新增物理彈簧卡片懸停效果
+- ✅ 優化滾動觸發動畫效能
 
 ### v1.0.0 (2026-09-01)
 - ✅ 初版發布
