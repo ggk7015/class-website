@@ -2183,33 +2183,25 @@ body {
 
 /* ============================================================
    MICRO-INTERACTIONS & TRANSITION EFFECTS
+   (Most animations now handled by Anime.js v4 + Motion)
    ============================================================ */
 
-/* --- Page Load Animation --- */
-@keyframes page-fade-in {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+/* --- Page Load Animation (handled by Motion) --- */
 .app-container {
-  animation: page-fade-in 0.5s ease-out both;
+  opacity: 0;
 }
 
-/* --- Section Reveal (scroll-triggered) --- */
+/* --- Section Reveal (handled by Anime.js Scroll Observer) --- */
 .reveal {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
 .reveal.visible {
   opacity: 1;
   transform: translateY(0);
 }
-.reveal.delay-1 { transition-delay: 0.08s; }
-.reveal.delay-2 { transition-delay: 0.16s; }
-.reveal.delay-3 { transition-delay: 0.24s; }
-.reveal.delay-4 { transition-delay: 0.32s; }
 
-/* --- Card Lift & Glow on Hover --- */
+/* --- Card Lift & Glow on Hover (handled by Motion Spring) --- */
 .feature-card,
 .quick-action-card,
 .guide-card,
@@ -2219,23 +2211,22 @@ body {
 .leave-section-card,
 .day-group-box,
 .tab-btn {
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+  /* Transitions handled by Motion Spring */
 }
 .feature-card:hover,
 .quick-action-card:hover,
 .guide-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+  /* Hover effects handled by Motion Spring */
 }
 @media (prefers-color-scheme: dark) {
   .feature-card:hover,
   .quick-action-card:hover,
   .guide-card:hover {
-    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.3);
+    /* Dark mode hover handled by Motion Spring */
   }
 }
 
-/* --- Card Press Effect --- */
+/* --- Card Press Effect (handled by Motion) --- */
 .feature-card:active,
 .quick-action-card:active,
 .guide-card:active,
@@ -2243,17 +2234,9 @@ body {
   transform: translateY(-1px) scale(0.98);
 }
 
-/* --- Feature Icon Bounce on Card Hover --- */
-.feature-card:hover .feature-icon {
-  animation: icon-bounce 0.4s ease;
-}
-@keyframes icon-bounce {
-  0%, 100% { transform: translateY(0); }
-  40% { transform: translateY(-6px); }
-  60% { transform: translateY(-3px); }
-}
+/* --- Feature Icon Bounce on Card Hover (handled by Motion) --- */
 
-/* --- Ripple Effect on Buttons & Quick Actions --- */
+/* --- Ripple Effect on Buttons & Quick Actions (handled by Motion) --- */
 .ripple-host {
   position: relative;
   overflow: hidden;
@@ -2263,17 +2246,13 @@ body {
   border-radius: 50%;
   background: rgba(255, 255, 255, 0.35);
   transform: scale(0);
-  animation: ripple-expand 0.5s ease-out forwards;
   pointer-events: none;
-}
-@keyframes ripple-expand {
-  to { transform: scale(4); opacity: 0; }
 }
 @media (prefers-color-scheme: dark) {
   .ripple { background: rgba(255, 255, 255, 0.12); }
 }
 
-/* --- Tab Switcher Animated Underline --- */
+/* --- Tab Switcher Animated Underline (handled by Motion) --- */
 .tab-btn::after {
   content: '';
   position: absolute;
@@ -2291,19 +2270,12 @@ body {
   left: 20%;
 }
 
-/* --- Announcement Date Badge Pulse --- */
-@keyframes badge-pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.08); }
-}
+/* --- Announcement Date Badge Pulse (handled by Motion) --- */
 .ann-date {
   transition: transform 0.2s ease, background 0.2s ease;
 }
-.ann-date:hover {
-  animation: badge-pulse 0.6s ease;
-}
 
-/* --- Event Item Slide-In --- */
+/* --- Event Item Slide-In (handled by Anime.js Scroll Observer) --- */
 .event-item {
   opacity: 0;
   transform: translateX(-12px);
@@ -2314,14 +2286,7 @@ body {
   transform: translateX(0);
 }
 
-/* --- FAQ Accordion Smooth Transition --- */
-.faq-item.active .faq-answer-panel {
-  animation: faq-expand 0.3s ease forwards;
-}
-@keyframes faq-expand {
-  from { max-height: 0; opacity: 0; }
-  to { max-height: 600px; opacity: 1; }
-}
+/* --- FAQ Accordion Smooth Transition (handled by Motion) --- */
 .faq-question-btn {
   transition: background 0.2s ease, color 0.2s ease;
 }
@@ -2361,15 +2326,10 @@ body {
   }
 }
 
-/* --- Skeleton Loading Shimmer --- */
-@keyframes shimmer {
-  0% { background-position: -400px 0; }
-  100% { background-position: 400px 0; }
-}
+/* --- Skeleton Loading Shimmer (handled by Motion) --- */
 .skeleton {
   background: linear-gradient(90deg, var(--bg-card, #f1f5f9) 25%, var(--bg-main, #e2e8f0) 50%, var(--bg-card, #f1f5f9) 75%);
   background-size: 800px 100%;
-  animation: shimmer 1.5s infinite linear;
   border-radius: 8px;
 }
 @media (prefers-color-scheme: dark) {
@@ -2379,15 +2339,7 @@ body {
   }
 }
 
-/* --- Toast Notification Slide-In --- */
-@keyframes toast-in {
-  from { transform: translateY(100%) scale(0.95); opacity: 0; }
-  to { transform: translateY(0) scale(1); opacity: 1; }
-}
-@keyframes toast-out {
-  from { transform: translateY(0) scale(1); opacity: 1; }
-  to { transform: translateY(100%) scale(0.95); opacity: 0; }
-}
+/* --- Toast Notification (handled by Motion) --- */
 .toast-container {
   position: fixed;
   bottom: 1.5rem;
@@ -2408,17 +2360,9 @@ body {
   padding: 0.75rem 1.25rem;
   font-size: 0.85rem;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
-  animation: toast-in 0.35s ease-out;
-}
-.toast.hiding {
-  animation: toast-out 0.3s ease-in forwards;
 }
 
-/* --- Header Title Gradient Shimmer --- */
-@keyframes title-shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
+/* --- Header Title Gradient Shimmer (handled by Motion) --- */
 .site-title {
   background: linear-gradient(90deg, var(--text-main) 40%, var(--accent) 50%, var(--text-main) 60%);
   background-size: 200% auto;
@@ -2426,9 +2370,6 @@ body {
   background-clip: text;
   -webkit-text-fill-color: transparent;
   transition: filter 0.3s ease;
-}
-.site-title:hover {
-  animation: title-shimmer 1.5s ease infinite;
 }
 
 /* --- Back-to-Top Button --- */
@@ -2473,14 +2414,9 @@ html {
   outline-offset: 2px;
 }
 
-/* --- Reduced Motion --- */
+/* --- Reduced Motion (Anime.js v4 + Motion respect this preference) --- */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+  .app-container { opacity: 1; }
   .reveal { opacity: 1; transform: none; }
   .event-item { opacity: 1; transform: none; }
-  .app-container { animation: none; }
 }
