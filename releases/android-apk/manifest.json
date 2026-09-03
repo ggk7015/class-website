@@ -1,0 +1,21 @@
+﻿{
+    "icons":  [
+                  {
+                      "type":  "image/png",
+                      "sizes":  "192x192",
+                      "src":  "icon-192.png"
+                  },
+                  {
+                      "type":  "image/png",
+                      "sizes":  "512x512",
+                      "src":  "icon-512.png"
+                  }
+              ],
+    "description":  "Class2C Portal Website",
+    "background_color":  "#ffffff",
+    "theme_color":  "#2196F3",
+    "name":  "資二丙班級",
+    "start_url":  ".",
+    "display":  "standalone",
+    "short_name":  "資二丙"
+}

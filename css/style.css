@@ -1882,19 +1882,6 @@ body {
   color: #64748b;
 }
 
-.admin-link {
-  display: inline-block;
-  margin-top: 0.4rem;
-  font-size: 0.7rem;
-  color: #94a3b8;
-  text-decoration: none;
-  opacity: 0.3;
-  transition: opacity 0.3s ease;
-}
-.admin-link:hover {
-  opacity: 1;
-}
-
 /* 9. Responsive Adjustments */
 
 /* Small phones (< 360px) */

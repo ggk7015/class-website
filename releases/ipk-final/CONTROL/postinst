@@ -1,0 +1,7 @@
+#!/bin/sh
+mkdir -p /www/class-website
+cp -r /data/www/class-website/* /www/class-website/
+uci set uhttpd.main.listen_http='0.0.0.0:8080'
+uci set uhttpd.main.home='/www/class-website'
+uci commit uhttpd
+/etc/init.d/uhttpd restart
