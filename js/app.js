@@ -592,15 +592,21 @@ function initTimetable() {
           lessonsList.appendChild(breakCard);
         } else {
           const lesson = dayData.lessons.find(l => l.period === periodObj.period);
-          if (lesson) {
+          if (lesson && lesson.subject) {
             const card = document.createElement('div');
             card.className = 'lesson-card';
+            const teacherHtml = lesson.teacher ? `<span class="teacher-name">${escapeHtml(lesson.teacher)}</span>` : '';
+            const roomHtml = lesson.room ? `<span class="room-name">${escapeHtml(lesson.room)}</span>` : '';
             card.innerHTML = `
               <div class="lesson-left">
                 <div class="period-badge">${lesson.period}</div>
                 <div class="lesson-info">
                   <span class="subject-name">${escapeHtml(lesson.subject)}</span>
                 </div>
+              </div>
+              <div class="lesson-right">
+                ${teacherHtml}
+                ${roomHtml}
               </div>
             `;
             lessonsList.appendChild(card);
