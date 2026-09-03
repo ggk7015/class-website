@@ -14,7 +14,6 @@
 
   // ===== Default Credentials =====
   const DEFAULT_USER = 'admin';
-  const DEFAULT_PASS_HASH = 'fallback_00168c00';
 
   // ===== Default Data =====
   const defaultData = {
@@ -36,25 +35,50 @@
   let mustChangePassword = false;
 
   // ===== Crypto Helpers =====
-  async function hashPassword(password) {
-    // Try Web Crypto API first (requires HTTPS/localhost)
-    if (window.crypto && window.crypto.subtle) {
-      try {
-        const encoder = new TextEncoder();
-        const data = encoder.encode(password);
-        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-      } catch(e) {}
-    }
-    // Fallback: simple hash for non-secure contexts
+  function fallbackHash(password) {
     let hash = 0;
     for (let i = 0; i < password.length; i++) {
       const char = password.charCodeAt(i);
       hash = ((hash << 5) - hash) + char;
       hash = hash & hash;
     }
-    return 'fallback_' + Math.abs(hash).toString(16).padStart(8, '0');
+    return 'fb_' + Math.abs(hash).toString(16).padStart(8, '0');
+  }
+
+  async function sha256Hash(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  async function hashPassword(password) {
+    if (window.crypto && window.crypto.subtle) {
+      try { return await sha256Hash(password); } catch(e) {}
+    }
+    return fallbackHash(password);
+  }
+
+  // Check password against stored hash (supports both formats)
+  async function verifyPassword(password, storedHash) {
+    // Try SHA-256
+    if (window.crypto && window.crypto.subtle) {
+      try {
+        const sha = await sha256Hash(password);
+        if (sha === storedHash) return true;
+      } catch(e) {}
+    }
+    // Try fallback
+    if (fallbackHash(password) === storedHash) return true;
+    // Also try SHA-256 against stored fallback (migration)
+    if (window.crypto && window.crypto.subtle) {
+      try {
+        const sha = await sha256Hash(password);
+        if (sha === storedHash) return true;
+      } catch(e) {}
+    }
+    return false;
   }
 
   function getAuthData() {
@@ -67,13 +91,15 @@
     localStorage.setItem(AUTH_KEY, JSON.stringify(data));
   }
 
-  function initAuth() {
+  async function initAuth() {
     const auth = getAuthData();
 
     if (!auth) {
+      // Generate default password hash using available method
+      const defaultHash = await hashPassword('0000');
       saveAuthData({
         username: DEFAULT_USER,
-        passwordHash: DEFAULT_PASS_HASH,
+        passwordHash: defaultHash,
         mustChange: true
       });
     }
@@ -131,8 +157,8 @@
         return;
       }
 
-      const passHash = await hashPassword(pass);
-      if (passHash !== auth.passwordHash) {
+      const valid = await verifyPassword(pass, auth.passwordHash);
+      if (!valid) {
         errorEl.textContent = '帳號或密碼錯誤';
         return;
       }
