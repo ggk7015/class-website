@@ -14,7 +14,7 @@
 
   // ===== Default Credentials =====
   const DEFAULT_USER = 'admin';
-  const DEFAULT_PASS_HASH = '9af15b336e6a9619928537df30b2e6a2376569fcf9d7e773eccede65606529a0';
+  const DEFAULT_PASS_HASH = 'fallback_00168c00';
 
   // ===== Default Data =====
   const defaultData = {
@@ -37,11 +37,24 @@
 
   // ===== Crypto Helpers =====
   async function hashPassword(password) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(password);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+    // Try Web Crypto API first (requires HTTPS/localhost)
+    if (window.crypto && window.crypto.subtle) {
+      try {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(password);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      } catch(e) {}
+    }
+    // Fallback: simple hash for non-secure contexts
+    let hash = 0;
+    for (let i = 0; i < password.length; i++) {
+      const char = password.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash;
+    }
+    return 'fallback_' + Math.abs(hash).toString(16).padStart(8, '0');
   }
 
   function getAuthData() {
@@ -102,44 +115,48 @@
 
   async function handleLogin(e) {
     e.preventDefault();
-    const user = document.getElementById('login-user')?.value.trim();
-    const pass = document.getElementById('login-pass')?.value;
+    const user = document.getElementById('login-user')?.value.trim() || '';
+    const pass = document.getElementById('login-pass')?.value || '';
     const errorEl = document.getElementById('login-error');
 
-    const auth = getAuthData();
-    if (!auth) {
-      errorEl.textContent = '系統錯誤，請重新整理頁面';
-      return;
-    }
+    try {
+      const auth = getAuthData();
+      if (!auth) {
+        errorEl.textContent = '系統錯誤，請重新整理頁面';
+        return;
+      }
 
-    if (user !== auth.username) {
-      errorEl.textContent = '帳號或密碼錯誤';
-      return;
-    }
+      if (user !== auth.username) {
+        errorEl.textContent = '帳號或密碼錯誤';
+        return;
+      }
 
-    const passHash = await hashPassword(pass);
-    if (passHash !== auth.passwordHash) {
-      errorEl.textContent = '帳號或密碼錯誤';
-      return;
-    }
+      const passHash = await hashPassword(pass);
+      if (passHash !== auth.passwordHash) {
+        errorEl.textContent = '帳號或密碼錯誤';
+        return;
+      }
 
-    errorEl.textContent = '';
+      errorEl.textContent = '';
 
-    if (auth.mustChange) {
-      mustChangePassword = true;
-      showChangePasswordScreen();
-    } else {
-      isAuthenticated = true;
-      saveAuthData({ ...auth, sessionValid: true });
-      showMainApp();
-      initAll();
+      if (auth.mustChange) {
+        mustChangePassword = true;
+        showChangePasswordScreen();
+      } else {
+        isAuthenticated = true;
+        saveAuthData({ ...auth, sessionValid: true });
+        showMainApp();
+        setTimeout(() => initAll(), 50);
+      }
+    } catch(err) {
+      errorEl.textContent = '登入失敗：' + err.message;
     }
   }
 
   async function handleChangePassword(e) {
     e.preventDefault();
-    const newPass = document.getElementById('new-password')?.value;
-    const confirmPass = document.getElementById('confirm-password')?.value;
+    const newPass = document.getElementById('new-password')?.value || '';
+    const confirmPass = document.getElementById('confirm-password')?.value || '';
     const errorEl = document.getElementById('change-error');
 
     if (newPass.length < 4) {
@@ -185,19 +202,23 @@
 
   // ===== Init =====
   function initAll() {
-    initNavigation();
-    initMobileMenu();
-    initDashboard();
-    initAnnouncements();
-    initFAQ();
-    initEvents();
-    initGuidelines();
-    initRules();
-    initRegistrations();
-    initAI();
-    initTheme();
-    initExportImport();
-    initModal();
+    try {
+      initNavigation();
+      initMobileMenu();
+      initDashboard();
+      initAnnouncements();
+      initFAQ();
+      initEvents();
+      initGuidelines();
+      initRules();
+      initRegistrations();
+      initAI();
+      initTheme();
+      initExportImport();
+      initModal();
+    } catch(err) {
+      console.error('Init error:', err);
+    }
   }
 
   document.addEventListener('DOMContentLoaded', () => {
