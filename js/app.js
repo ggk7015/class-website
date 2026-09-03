@@ -92,7 +92,83 @@ document.addEventListener('DOMContentLoaded', () => {
   renderEvents();
   initExternalLinks();
   renderFAQ();
+  initWeather();
 });
+
+/**
+ * 14. 即時天氣 widget (Open-Meteo API, no key needed)
+ * Hsinchu coordinates: 24.8067°N, 120.9715°E
+ */
+function initWeather() {
+  const LAT = 24.8067;
+  const LON = 120.9715;
+  const weatherCodes = {
+    0: '☀️ 晴', 1: '🌤️ 大部晴', 2: '⛅ 局部多雲', 3: '☁️ 多雲',
+    45: '🌫️ 霧', 48: '🌫️ 凍霧',
+    51: '🌦️ 小雨', 53: '🌦️ 溫雨', 55: '🌧️ 大雨',
+    61: '🌧️ 小雨', 63: '🌧️ 溫雨', 65: '🌧️ 大雨',
+    71: '🌨️ 小雪', 73: '🌨️ 溫雪', 75: '❄️ 大雪',
+    80: '🌦️ 陣雨', 81: '🌧️ 溫陣雨', 82: '⛈️ 大陣雨',
+    95: '⛈️ 雷雨', 96: '⛈️ 雷陣雨', 99: '⛈️ 大雷雨'
+  };
+  const dayNames = ['日', '一', '二', '三', '四', '五', '六'];
+
+  function getWeatherIcon(code) {
+    if (code === undefined || code === null) return '🌤️';
+    const key = Object.keys(weatherCodes).find(k => parseInt(k) === code);
+    return key ? weatherCodes[key].split(' ')[0] : '🌤️';
+  }
+
+  function getWeatherDesc(code) {
+    if (code === undefined || code === null) return '晴';
+    const key = Object.keys(weatherCodes).find(k => parseInt(k) === code);
+    return key ? weatherCodes[key].split(' ').slice(1).join(' ') : '晴';
+  }
+
+  const url = `https://api.open-meteo.com/v1/forecast?latitude=${LAT}&longitude=${LON}&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation_probability,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FTaipei&forecast_days=4`;
+
+  fetch(url)
+    .then(res => res.json())
+    .then(data => {
+      const c = data.current;
+      const d = data.daily;
+
+      document.getElementById('weather-icon').textContent = getWeatherIcon(c.weather_code);
+      document.getElementById('weather-temp').textContent = `${Math.round(c.temperature_2m)}°C`;
+      document.getElementById('weather-desc').textContent = getWeatherDesc(c.weather_code);
+      document.getElementById('weather-feels').textContent = `${Math.round(c.apparent_temperature)}°C`;
+      document.getElementById('weather-rain').textContent = `${c.precipitation_probability}%`;
+      document.getElementById('weather-wind').textContent = `${c.wind_speed_10m} m/s`;
+      document.getElementById('weather-humidity').textContent = `${c.relative_humidity_2m}%`;
+
+      const now = new Date();
+      document.getElementById('weather-time').textContent =
+        `${now.getMonth()+1}/${now.getDate()} ${dayNames[now.getDay()}] 更新`;
+
+      const forecastRow = document.getElementById('forecast-row');
+      forecastRow.innerHTML = '';
+      for (let i = 1; i <= 3 && i < d.time.length; i++) {
+        const date = new Date(d.time[i] + 'T00:00:00');
+        const dayName = `週${dayNames[date.getDay()]}`;
+        const icon = getWeatherIcon(d.weather_code[i]);
+        const max = Math.round(d.temperature_2m_max[i]);
+        const min = Math.round(d.temperature_2m_min[i]);
+        const div = document.createElement('div');
+        div.className = 'forecast-day';
+        div.innerHTML = `
+          <span class="forecast-day-name">${dayName}</span>
+          <span class="forecast-day-icon">${icon}</span>
+          <span class="forecast-day-temp">${min}~${max}°C</span>
+        `;
+        forecastRow.appendChild(div);
+      }
+    })
+    .catch(err => {
+      document.getElementById('weather-desc').textContent = '無法取得天氣資料';
+      document.getElementById('weather-time').textContent = '';
+      console.warn('Weather fetch failed:', err);
+    });
+}
 
 /**
  * 1. 初始化網站標題與通用的導師叮嚀
