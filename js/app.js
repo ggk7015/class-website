@@ -1155,3 +1155,218 @@ function initSearch() {
     });
   }
 }
+
+/**
+ * 12. MICRO-INTERACTIONS & TRANSITION EFFECTS
+ */
+
+// --- Ripple Effect on Interactive Elements ---
+function initRipple() {
+  const targets = document.querySelectorAll('.feature-card, .quick-action-card, .guide-card, .tab-btn, .rule-link-card, .btn-reg-apply, .btn-go-leave');
+  targets.forEach(el => {
+    if (el.classList.contains('ripple-host')) return;
+    el.classList.add('ripple-host');
+    el.addEventListener('click', (e) => {
+      const rect = el.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      ripple.className = 'ripple';
+      const size = Math.max(rect.width, rect.height) * 2;
+      ripple.style.width = ripple.style.height = `${size}px`;
+      ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
+      ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
+      el.appendChild(ripple);
+      ripple.addEventListener('animationend', () => ripple.remove());
+    });
+  });
+}
+
+// --- Scroll Reveal (IntersectionObserver) ---
+function initScrollReveal() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const revealTargets = document.querySelectorAll(
+    '.feature-card, .announcement-card, .guide-card, .event-item, .faq-item, .rule-link-card, .reg-card, .day-group-box, .section-title, .home-quick-info'
+  );
+
+  revealTargets.forEach((el, i) => {
+    el.classList.add('reveal');
+    el.classList.add(`delay-${(i % 4) + 1}`);
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  revealTargets.forEach(el => observer.observe(el));
+}
+
+// --- Stagger Animation for Event Items ---
+function initEventStagger() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05 });
+
+  document.querySelectorAll('.event-item').forEach(el => observer.observe(el));
+}
+
+// --- Back to Top Button ---
+function initBackToTop() {
+  const btn = document.createElement('button');
+  btn.className = 'back-to-top';
+  btn.innerHTML = '↑';
+  btn.setAttribute('aria-label', '回到頂部');
+  btn.setAttribute('title', '回到頂部');
+  document.body.appendChild(btn);
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        btn.classList.toggle('visible', window.scrollY > 400);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
+// --- Toast Notification System ---
+window.showToast = function(message, duration = 3000) {
+  let container = document.querySelector('.toast-container');
+  if (!container) {
+    container = document.createElement('div');
+    container.className = 'toast-container';
+    document.body.appendChild(container);
+  }
+
+  const toast = document.createElement('div');
+  toast.className = 'toast';
+  toast.textContent = message;
+  container.appendChild(toast);
+
+  setTimeout(() => {
+    toast.classList.add('hiding');
+    toast.addEventListener('animationend', () => toast.remove());
+  }, duration);
+};
+
+// --- View Transition Enhancement ---
+function initViewTransitions() {
+  const views = document.querySelectorAll('.page-view');
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach(mutation => {
+      if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+        const target = mutation.target;
+        if (target.classList.contains('view-active')) {
+          target.style.animation = 'none';
+          target.offsetHeight; // trigger reflow
+          target.style.animation = 'page-fade-in 0.35s ease-out';
+        }
+      }
+    });
+  });
+
+  views.forEach(view => {
+    observer.observe(view, { attributes: true, attributeFilter: ['class'] });
+  });
+}
+
+// --- Accordion Smooth Height for Guide Cards ---
+function initGuideAccordionSmooth() {
+  document.querySelectorAll('.guide-card').forEach(card => {
+    const body = card.querySelector('.guide-card-body');
+    if (!body) return;
+    body.style.transition = 'max-height 0.35s ease, opacity 0.3s ease, padding 0.3s ease';
+    body.style.overflow = 'hidden';
+
+    const updateHeight = () => {
+      if (card.classList.contains('expanded')) {
+        body.style.maxHeight = body.scrollHeight + 'px';
+        body.style.opacity = '1';
+      } else {
+        body.style.maxHeight = '0';
+        body.style.opacity = '0';
+      }
+    };
+
+    updateHeight();
+    const header = card.querySelector('.guide-card-header');
+    if (header) {
+      header.addEventListener('click', () => {
+        requestAnimationFrame(updateHeight);
+      });
+    }
+  });
+}
+
+// --- Month Panel Smooth Transition ---
+function initMonthPanelTransition() {
+  const container = document.getElementById('events-month-groups');
+  if (!container) return;
+
+  container.addEventListener('click', (e) => {
+    const header = e.target.closest('.event-month-header');
+    if (!header) return;
+    const panelId = header.getAttribute('aria-controls');
+    const panel = document.getElementById(panelId);
+    if (!panel) return;
+
+    if (!panel.hidden) {
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+      requestAnimationFrame(() => {
+        panel.style.transition = 'max-height 0.35s ease, opacity 0.3s ease';
+        panel.style.maxHeight = '0';
+        panel.style.opacity = '0';
+        setTimeout(() => {
+          panel.hidden = true;
+          panel.style.maxHeight = '';
+          panel.style.opacity = '';
+          panel.style.transition = '';
+        }, 350);
+      });
+    } else {
+      panel.hidden = false;
+      panel.style.maxHeight = '0';
+      panel.style.opacity = '0';
+      requestAnimationFrame(() => {
+        panel.style.transition = 'max-height 0.35s ease, opacity 0.3s ease';
+        panel.style.maxHeight = panel.scrollHeight + 'px';
+        panel.style.opacity = '1';
+        setTimeout(() => {
+          panel.style.maxHeight = '';
+          panel.style.opacity = '';
+          panel.style.transition = '';
+        }, 350);
+      });
+    }
+  });
+}
+
+// --- Initialize All Micro-Interactions ---
+document.addEventListener('DOMContentLoaded', () => {
+  initRipple();
+  initScrollReveal();
+  initEventStagger();
+  initBackToTop();
+  initViewTransitions();
+  initGuideAccordionSmooth();
+  initMonthPanelTransition();
+});
