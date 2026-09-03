@@ -2315,21 +2315,12 @@ body {
 }
 
 /* --- FAQ Accordion Smooth Transition --- */
-.faq-answer-panel {
-  display: block !important;
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  padding: 0 0.85rem;
-  transition: max-height 0.35s ease, opacity 0.3s ease, padding 0.35s ease;
-  border-top: none;
-  background-color: #fafafa;
-}
 .faq-item.active .faq-answer-panel {
-  max-height: 600px;
-  opacity: 1;
-  padding: 0.85rem;
-  border-top: 1px solid #f1f5f9;
+  animation: faq-expand 0.3s ease forwards;
+}
+@keyframes faq-expand {
+  from { max-height: 0; opacity: 0; }
+  to { max-height: 600px; opacity: 1; }
 }
 .faq-question-btn {
   transition: background 0.2s ease, color 0.2s ease;
