@@ -31,3 +31,6 @@ releases/
 
 # Benchmark / temp
 benchmark.bat
+
+java/out/
+*.class
