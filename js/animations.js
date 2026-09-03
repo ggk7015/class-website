@@ -16,7 +16,10 @@
    */
   function initThemeToggle() {
     const toggleBtn = document.getElementById('theme-toggle');
-    if (!toggleBtn) return;
+    if (!toggleBtn) {
+      console.warn('Theme toggle button not found');
+      return;
+    }
 
     // Load saved theme or default to dark
     const savedTheme = localStorage.getItem('class2c_theme');
@@ -26,7 +29,13 @@
       document.body.classList.remove('light-mode');
     }
 
-    toggleBtn.addEventListener('click', () => {
+    // Remove any existing listeners
+    const newBtn = toggleBtn.cloneNode(true);
+    toggleBtn.parentNode.replaceChild(newBtn, toggleBtn);
+
+    newBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
       document.body.classList.toggle('light-mode');
       const isLight = document.body.classList.contains('light-mode');
       localStorage.setItem('class2c_theme', isLight ? 'light' : 'dark');
