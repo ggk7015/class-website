@@ -317,21 +317,20 @@ export const timetableData = {
     1: { dayName: "星期一", lessons: [
       { period: 2, subject: "數學", targetClass: "九年六班" },
       { period: 3, subject: "數學", targetClass: "七年四班" },
-      { period: 6, subject: "數學演習", targetClass: "資一乙" },
+      { period: 6, subject: "數學", targetClass: "資一乙" },
       { period: 7, subject: "數學", targetClass: "九年七班" }
     ]},
     2: { dayName: "星期二", lessons: [
       { period: 1, subject: "班會", targetClass: "資二丙" },
       { period: 2, subject: "數學", targetClass: "七年四班" },
       { period: 3, subject: "數學", targetClass: "九年六班" },
-      { period: 5, subject: "數學演習", targetClass: "資一乙" },
+      { period: 5, subject: "數學", targetClass: "資一乙" },
       { period: 6, subject: "數學", targetClass: "資二丙" },
       { period: 7, subject: "應用數學", targetClass: "資二丙" }
     ]},
     3: { dayName: "星期三", lessons: [
       { period: 1, subject: "數學", targetClass: "九年六班" },
       { period: 2, subject: "數學", targetClass: "資二丙" },
-      { period: 3, subject: "健康教育", targetClass: "九年七班" },
       { period: 4, subject: "數學", targetClass: "九年七班" },
       { period: 7, subject: "數學", targetClass: "資一乙" }
     ]},
