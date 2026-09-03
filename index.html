@@ -19,6 +19,24 @@
   <!-- Animation Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/animejs@4.0.0/lib/anime.iife.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/motion@11.11.13/dist/motion.js"></script>
+
+  <!-- Theme Toggle (inline, runs immediately) -->
+  <script>
+    (function() {
+      var btn = document.getElementById('theme-toggle');
+      var body = document.body;
+      // Load saved theme
+      if (localStorage.getItem('class2c_theme') === 'light') {
+        body.classList.add('light-mode');
+      }
+      if (btn) {
+        btn.addEventListener('click', function() {
+          body.classList.toggle('light-mode');
+          localStorage.setItem('class2c_theme', body.classList.contains('light-mode') ? 'light' : 'dark');
+        });
+      }
+    })();
+  </script>
 </head>
 <body>
 
@@ -35,10 +53,7 @@
             <h1 class="site-title" id="site-title-text">資二丙班級資訊站</h1>
           </div>
           <div class="header-right-group">
-            <button id="theme-toggle" class="theme-toggle-btn" aria-label="切換晝夜模式" title="切換晝夜模式">
-              <span class="theme-icon-sun">☀️</span>
-              <span class="theme-icon-moon">🌙</span>
-            </button>
+            <button id="theme-toggle" class="theme-toggle-btn" aria-label="切換晝夜模式" title="切換晝夜模式">🌙</button>
             <span class="class-badge-pill" id="site-class-badge">資二丙班</span>
           </div>
         </div>

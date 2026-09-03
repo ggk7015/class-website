@@ -12,37 +12,6 @@
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /**
-   * Theme Toggle (Day/Night Mode)
-   */
-  function initThemeToggle() {
-    const toggleBtn = document.getElementById('theme-toggle');
-    if (!toggleBtn) {
-      console.warn('Theme toggle button not found');
-      return;
-    }
-
-    // Load saved theme or default to dark
-    const savedTheme = localStorage.getItem('class2c_theme');
-    if (savedTheme === 'light') {
-      document.body.classList.add('light-mode');
-    } else {
-      document.body.classList.remove('light-mode');
-    }
-
-    // Remove any existing listeners
-    const newBtn = toggleBtn.cloneNode(true);
-    toggleBtn.parentNode.replaceChild(newBtn, toggleBtn);
-
-    newBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      e.stopPropagation();
-      document.body.classList.toggle('light-mode');
-      const isLight = document.body.classList.contains('light-mode');
-      localStorage.setItem('class2c_theme', isLight ? 'light' : 'dark');
-    });
-  }
-
-  /**
    * Page Load Animation (Motion)
    */
   function initPageLoad() {
@@ -390,7 +359,6 @@
    * Initialize All Animations
    */
   function initAllAnimations() {
-    initThemeToggle();
     initPageLoad();
     initScrollReveal();
     initCardHover();
