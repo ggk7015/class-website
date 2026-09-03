@@ -8,9 +8,6 @@
 (function() {
   'use strict';
 
-  const { animate, stagger, spring, scroll } = Motion;
-  const { createTimeline, createScope, onScroll } = anime;
-
   // Respect reduced motion preference
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -19,8 +16,9 @@
    */
   function initPageLoad() {
     if (prefersReducedMotion) return;
+    if (typeof Motion === 'undefined') return;
 
-    animate('.app-container', {
+    Motion.animate('.app-container', {
       opacity: [0, 1],
       y: [16, 0]
     }, {
@@ -34,6 +32,7 @@
    */
   function initScrollReveal() {
     if (prefersReducedMotion) return;
+    if (typeof anime === 'undefined') return;
 
     const targets = document.querySelectorAll(
       '.feature-card, .announcement-card, .guide-card, .event-item, .faq-item, .rule-link-card, .reg-card, .day-group-box, .section-title, .home-quick-info'
@@ -43,13 +42,16 @@
       el.classList.add('reveal');
     });
 
-    // Use Anime.js Scroll Observer
     targets.forEach((el, i) => {
-      createScope().add(() => {
-        onScroll({
+      const scope = anime.createScope({
+        target: el
+      });
+
+      scope.add(() => {
+        anime.onScroll({
           target: el,
           onEnter: () => {
-            animate(el, {
+            anime.animate(el, {
               opacity: [0, 1],
               y: [24, 0]
             }, {
@@ -57,57 +59,55 @@
               delay: (i % 4) * 0.08,
               ease: 'easeOut'
             });
-          },
-          onEnterBack: () => {},
-          onLeave: () => {},
-          onLeaveBack: () => {}
+          }
         });
       });
     });
   }
 
   /**
-   * Card Hover Effects (Motion Spring)
+   * Card Hover Effects (Motion)
    */
   function initCardHover() {
     if (prefersReducedMotion) return;
+    if (typeof Motion === 'undefined') return;
 
     const cards = document.querySelectorAll('.feature-card, .quick-action-card, .guide-card');
 
     cards.forEach(card => {
       card.addEventListener('mouseenter', () => {
-        animate(card, {
+        Motion.animate(card, {
           y: -4,
           boxShadow: '0 12px 32px rgba(0, 0, 0, 0.08)'
         }, {
-          type: spring,
+          type: 'spring',
           stiffness: 300,
           damping: 20
         });
       });
 
       card.addEventListener('mouseleave', () => {
-        animate(card, {
+        Motion.animate(card, {
           y: 0,
           boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)'
         }, {
-          type: spring,
+          type: 'spring',
           stiffness: 300,
           damping: 20
         });
       });
 
       card.addEventListener('mousedown', () => {
-        animate(card, {
+        Motion.animate(card, {
           scale: 0.98
         }, { duration: 0.1 });
       });
 
       card.addEventListener('mouseup', () => {
-        animate(card, {
+        Motion.animate(card, {
           scale: 1
         }, {
-          type: spring,
+          type: 'spring',
           stiffness: 400,
           damping: 15
         });
@@ -120,6 +120,7 @@
    */
   function initIconBounce() {
     if (prefersReducedMotion) return;
+    if (typeof Motion === 'undefined') return;
 
     const cards = document.querySelectorAll('.feature-card');
 
@@ -128,7 +129,7 @@
       if (!icon) return;
 
       card.addEventListener('mouseenter', () => {
-        animate(icon, {
+        Motion.animate(icon, {
           y: [0, -6, -3, 0]
         }, {
           duration: 0.4,
@@ -143,6 +144,7 @@
    */
   function initRipple() {
     if (prefersReducedMotion) return;
+    if (typeof Motion === 'undefined') return;
 
     const targets = document.querySelectorAll('.feature-card, .quick-action-card, .guide-card, .tab-btn, .rule-link-card, .btn-reg-apply, .btn-go-leave');
 
@@ -157,7 +159,7 @@
         ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
         el.appendChild(ripple);
 
-        animate(ripple, {
+        Motion.animate(ripple, {
           scale: [0, 4],
           opacity: [0.35, 0]
         }, {
@@ -174,6 +176,7 @@
    */
   function initEventStagger() {
     if (prefersReducedMotion) return;
+    if (typeof anime === 'undefined') return;
 
     const items = document.querySelectorAll('.event-item');
     if (!items.length) return;
@@ -182,7 +185,7 @@
       const visibleEntries = entries.filter(e => e.isIntersecting);
       if (visibleEntries.length === 0) return;
 
-      const tl = createTimeline();
+      const tl = anime.createTimeline();
       visibleEntries.forEach(({ target }, i) => {
         tl.add(target, {
           opacity: [0, 1],
@@ -201,6 +204,7 @@
    */
   function initFaqAccordion() {
     if (prefersReducedMotion) return;
+    if (typeof Motion === 'undefined') return;
 
     document.querySelectorAll('.faq-question-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -211,7 +215,7 @@
         if (!isActive) {
           item.classList.add('active');
           panel.style.display = 'block';
-          animate(panel, {
+          Motion.animate(panel, {
             maxHeight: ['0px', '600px'],
             opacity: [0, 1]
           }, {
@@ -219,7 +223,7 @@
             ease: 'easeOut'
           });
         } else {
-          animate(panel, {
+          Motion.animate(panel, {
             maxHeight: ['600px', '0px'],
             opacity: [1, 0]
           }, {
@@ -240,10 +244,11 @@
    */
   function initBadgePulse() {
     if (prefersReducedMotion) return;
+    if (typeof Motion === 'undefined') return;
 
     document.querySelectorAll('.ann-date').forEach(badge => {
       badge.addEventListener('mouseenter', () => {
-        animate(badge, {
+        Motion.animate(badge, {
           scale: [1, 1.08, 1]
         }, {
           duration: 0.6,
@@ -254,35 +259,10 @@
   }
 
   /**
-   * Tab Switcher Underline (Motion)
-   */
-  function initTabSwitcher() {
-    if (prefersReducedMotion) return;
-
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const underline = btn.querySelector('::after') || btn;
-        animate(btn, {
-          '--tab-width': ['0%', '60%']
-        }, {
-          duration: 0.3,
-          ease: 'easeOut'
-        });
-      });
-    });
-  }
-
-  /**
    * Toast Notifications (Motion)
    */
   function initToast() {
-    if (prefersReducedMotion) return;
-
-    const style = document.createElement('style');
-    style.textContent = `
-      .toast { animation: none !important; }
-    `;
-    document.head.appendChild(style);
+    if (typeof Motion === 'undefined') return;
 
     window.showToast = function(message, type = 'info') {
       const toast = document.createElement('div');
@@ -290,7 +270,7 @@
       toast.textContent = message;
       document.body.appendChild(toast);
 
-      animate(toast, {
+      Motion.animate(toast, {
         opacity: [0, 1],
         y: [20, 0]
       }, {
@@ -299,7 +279,7 @@
       });
 
       setTimeout(() => {
-        animate(toast, {
+        Motion.animate(toast, {
           opacity: [1, 0],
           y: [0, 20]
         }, {
@@ -316,16 +296,18 @@
    */
   function initTitleShimmer() {
     if (prefersReducedMotion) return;
+    if (typeof Motion === 'undefined') return;
 
-    const title = document.querySelector('.header-main-title');
+    const title = document.querySelector('.site-title');
     if (!title) return;
 
-    animate(title, {
-      backgroundPosition: ['200% center', '-200% center']
-    }, {
-      duration: 3,
-      repeat: Infinity,
-      ease: 'linear'
+    title.addEventListener('mouseenter', () => {
+      Motion.animate(title, {
+        backgroundPosition: ['200% center', '-200% center']
+      }, {
+        duration: 1.5,
+        ease: 'easeInOut'
+      });
     });
   }
 
@@ -333,11 +315,13 @@
    * Skeleton Shimmer (Motion)
    */
   function initSkeletonShimmer() {
+    if (typeof Motion === 'undefined') return;
+
     const skeletons = document.querySelectorAll('.skeleton');
     if (!skeletons.length) return;
 
     skeletons.forEach(el => {
-      animate(el, {
+      Motion.animate(el, {
         backgroundPosition: ['200% 0', '-200% 0']
       }, {
         duration: 1.5,
@@ -383,7 +367,6 @@
     initEventStagger();
     initFaqAccordion();
     initBadgePulse();
-    initTabSwitcher();
     initToast();
     initTitleShimmer();
     initSkeletonShimmer();
