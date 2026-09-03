@@ -1,1 +1,0 @@
-C:\Users\ggk\Documents\Default\ Project\class-website\server-rust\target\release\class-website-server.exe: C:\Users\ggk\Documents\Default\ Project\class-website\server-rust\src\../../index.html C:\Users\ggk\Documents\Default\ Project\class-website\server-rust\src\main.rs

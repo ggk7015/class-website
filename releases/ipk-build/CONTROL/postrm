@@ -1,5 +1,0 @@
-#!/bin/sh
-# Post-remove script for class-website
-
-# Restart uhttpd
-/etc/init.d/uhttpd restart 2>/dev/null

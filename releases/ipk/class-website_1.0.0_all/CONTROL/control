@@ -1,8 +1,0 @@
-Package: class-website
-Version: 1.0.0
-Depends: uhttpd
-Architecture: all
-Maintainer: ggk7015 <ylerk7015@gmail.com>
-Description: Class2C Portal Website
- A responsive class website for ?????
- featuring schedule, announcements, and more.

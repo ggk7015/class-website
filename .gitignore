@@ -13,5 +13,21 @@ Thumbs.db
 .vscode/
 .idea/
 
-# Build
+# Build output
 dist/
+build/
+
+# Rust
+server-rust/target/
+server-rust.exe
+*.pdb
+
+# Binaries / Releases
+releases/
+*.exe
+*.apk
+*.ipk
+*.zip
+
+# Benchmark / temp
+benchmark.bat
