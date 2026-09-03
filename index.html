@@ -25,14 +25,14 @@
     (function() {
       var btn = document.getElementById('theme-toggle');
       var body = document.body;
-      // Load saved theme
-      if (localStorage.getItem('class2c_theme') === 'light') {
-        body.classList.add('light-mode');
+      var saved = localStorage.getItem('class2c_theme');
+      if (saved === 'dark') {
+        body.classList.add('dark-mode');
       }
       if (btn) {
         btn.addEventListener('click', function() {
-          body.classList.toggle('light-mode');
-          localStorage.setItem('class2c_theme', body.classList.contains('light-mode') ? 'light' : 'dark');
+          body.classList.toggle('dark-mode');
+          localStorage.setItem('class2c_theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
         });
       }
     })();

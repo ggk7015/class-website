@@ -10,13 +10,13 @@
   --primary-light: #eff6ff;       /* Light Blue Tint */
   --primary-border: #bfdbfe;      /* Subtle Blue Border */
 
-  --bg-main: #f8fafc;             /* Slate 50 Main Background */
+  --bg-main: #f8fafc;             /* Light Main Background */
   --bg-card: #ffffff;             /* Pure White Card */
   --bg-card-hover: #f1f5f9;       /* Hover state */
 
-  --text-main: #1e293b;           /* Slate 800 Primary Text */
-  --text-muted: #64748b;          /* Slate 500 Subtitle/Desc */
-  --text-light: #94a3b8;          /* Slate 400 Light Text */
+  --text-main: #1e293b;           /* Dark Primary Text */
+  --text-muted: #64748b;          /* Gray Subtitle/Desc */
+  --text-light: #94a3b8;          /* Light Gray Text */
 
   --danger-color: #ef4444;        /* Urgent / Important Red */
   --danger-bg: #fef2f2;
@@ -183,12 +183,12 @@ body {
 .theme-toggle-btn:active {
   transform: scale(0.95);
 }
-body.light-mode #theme-toggle::after {
+body.dark-mode #theme-toggle::after {
   content: '☀️';
   position: absolute;
   font-size: 1rem;
 }
-body:not(.light-mode) #theme-toggle::after {
+body:not(.dark-mode) #theme-toggle::after {
   content: '';
 }
 
@@ -2466,43 +2466,43 @@ html {
 }
 
 /* ============================================================
-   LIGHT MODE (Day Theme)
+   DARK MODE (Night Theme) - toggled via .dark-mode on body
    ============================================================ */
-body.light-mode {
-  --bg-main: #ffffff;
-  --bg-card: #f8fafc;
-  --bg-card-hover: #f1f5f9;
-  --text-main: #1e293b;
-  --text-muted: #64748b;
-  --text-light: #94a3b8;
-  --border: #e2e8f0;
+body.dark-mode {
+  --bg-main: #0f172a;
+  --bg-card: #1e293b;
+  --bg-card-hover: #334155;
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-light: #64748b;
+  --border: #334155;
 }
-body.light-mode .app-header {
-  background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+body.dark-mode .app-header {
+  background: linear-gradient(135deg, #1e3a5f 0%, #1e40af 100%);
 }
-body.light-mode .app-container {
-  background-color: #ffffff;
+body.dark-mode .app-container {
+  background-color: #0f172a;
 }
-body.light-mode .feature-card,
-body.light-mode .quick-action-card,
-body.light-mode .guide-card,
-body.light-mode .announcement-card,
-body.light-mode .faq-item,
-body.light-mode .event-item,
-body.light-mode .rule-link-card,
-body.light-mode .reg-card,
-body.light-mode .leave-section-card,
-body.light-mode .day-group-box {
-  background-color: #ffffff;
-  border-color: #e2e8f0;
+body.dark-mode .feature-card,
+body.dark-mode .quick-action-card,
+body.dark-mode .guide-card,
+body.dark-mode .announcement-card,
+body.dark-mode .faq-item,
+body.dark-mode .event-item,
+body.dark-mode .rule-link-card,
+body.dark-mode .reg-card,
+body.dark-mode .leave-section-card,
+body.dark-mode .day-group-box {
+  background-color: #1e293b;
+  border-color: #334155;
 }
-body.light-mode .search-input {
-  background-color: #ffffff;
-  border-color: #e2e8f0;
-  color: #1e293b;
+body.dark-mode .search-input {
+  background-color: #1e293b;
+  border-color: #334155;
+  color: #f8fafc;
 }
-body.light-mode .toast {
-  background: #ffffff;
-  color: #1e293b;
-  border-color: #e2e8f0;
+body.dark-mode .toast {
+  background: #1e293b;
+  color: #f8fafc;
+  border-color: #334155;
 }
