@@ -2185,11 +2185,6 @@ body {
    MICRO-INTERACTIONS & TRANSITION EFFECTS
    ============================================================ */
 
-/* --- Global Smooth Transitions --- */
-* {
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
 /* --- Page Load Animation --- */
 @keyframes page-fade-in {
   from { opacity: 0; transform: translateY(16px); }
@@ -2321,24 +2316,26 @@ body {
 
 /* --- FAQ Accordion Smooth Transition --- */
 .faq-answer-panel {
+  display: block !important;
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.35s ease, opacity 0.3s ease, padding 0.3s ease;
   opacity: 0;
-  padding-top: 0;
-  padding-bottom: 0;
+  padding: 0 0.85rem;
+  transition: max-height 0.35s ease, opacity 0.3s ease, padding 0.35s ease;
+  border-top: none;
+  background-color: #fafafa;
 }
-.faq-item.open .faq-answer-panel {
-  max-height: 500px;
+.faq-item.active .faq-answer-panel {
+  max-height: 600px;
   opacity: 1;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
+  padding: 0.85rem;
+  border-top: 1px solid #f1f5f9;
 }
 .faq-question-btn {
   transition: background 0.2s ease, color 0.2s ease;
 }
-.faq-item.open .faq-question-btn {
-  color: var(--accent);
+.faq-item.active .faq-question-btn {
+  color: var(--primary-color);
 }
 
 /* --- Quick Action Hover Glow --- */
