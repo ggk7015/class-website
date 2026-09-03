@@ -10,7 +10,11 @@
   // ===== Storage Keys =====
   const STORAGE_KEY = 'class2c_admin_data';
   const THEME_KEY = 'class2c_theme';
-  const AI_KEY = 'class2c_ai_config';
+  const AUTH_KEY = 'class2c_auth';
+
+  // ===== Default Credentials =====
+  const DEFAULT_USER = 'admin';
+  const DEFAULT_PASS_HASH = '9af15b336e6a9619928537df30b2e6a2376569fcf9d7e773eccede65606529a0';
 
   // ===== Default Data =====
   const defaultData = {
@@ -28,12 +32,161 @@
   let editingItem = null;
   let editingType = null;
   let aiTargetType = null;
+  let isAuthenticated = false;
+  let mustChangePassword = false;
+
+  // ===== Crypto Helpers =====
+  async function hashPassword(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  function getAuthData() {
+    try {
+      return JSON.parse(localStorage.getItem(AUTH_KEY)) || null;
+    } catch { return null; }
+  }
+
+  function saveAuthData(data) {
+    localStorage.setItem(AUTH_KEY, JSON.stringify(data));
+  }
+
+  function initAuth() {
+    const auth = getAuthData();
+
+    if (!auth) {
+      saveAuthData({
+        username: DEFAULT_USER,
+        passwordHash: DEFAULT_PASS_HASH,
+        mustChange: true
+      });
+    }
+
+    const stored = getAuthData();
+    if (stored && !stored.mustChange && stored.sessionValid) {
+      isAuthenticated = true;
+      mustChangePassword = false;
+      showMainApp();
+      initAll();
+    } else if (stored && stored.mustChange) {
+      mustChangePassword = true;
+      showChangePasswordScreen();
+    } else {
+      showLoginScreen();
+    }
+
+    document.getElementById('login-form')?.addEventListener('submit', handleLogin);
+    document.getElementById('change-password-form')?.addEventListener('submit', handleChangePassword);
+  }
+
+  function showLoginScreen() {
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('change-password-screen').style.display = 'none';
+    document.getElementById('admin-main').style.display = 'none';
+  }
+
+  function showChangePasswordScreen() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('change-password-screen').style.display = 'flex';
+    document.getElementById('admin-main').style.display = 'none';
+  }
+
+  function showMainApp() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('change-password-screen').style.display = 'none';
+    document.getElementById('admin-main').style.display = 'flex';
+  }
+
+  async function handleLogin(e) {
+    e.preventDefault();
+    const user = document.getElementById('login-user')?.value.trim();
+    const pass = document.getElementById('login-pass')?.value;
+    const errorEl = document.getElementById('login-error');
+
+    const auth = getAuthData();
+    if (!auth) {
+      errorEl.textContent = '系統錯誤，請重新整理頁面';
+      return;
+    }
+
+    if (user !== auth.username) {
+      errorEl.textContent = '帳號或密碼錯誤';
+      return;
+    }
+
+    const passHash = await hashPassword(pass);
+    if (passHash !== auth.passwordHash) {
+      errorEl.textContent = '帳號或密碼錯誤';
+      return;
+    }
+
+    errorEl.textContent = '';
+
+    if (auth.mustChange) {
+      mustChangePassword = true;
+      showChangePasswordScreen();
+    } else {
+      isAuthenticated = true;
+      saveAuthData({ ...auth, sessionValid: true });
+      showMainApp();
+      initAll();
+    }
+  }
+
+  async function handleChangePassword(e) {
+    e.preventDefault();
+    const newPass = document.getElementById('new-password')?.value;
+    const confirmPass = document.getElementById('confirm-password')?.value;
+    const errorEl = document.getElementById('change-error');
+
+    if (newPass.length < 4) {
+      errorEl.textContent = '密碼至少 4 個字元';
+      return;
+    }
+
+    if (newPass === '0000') {
+      errorEl.textContent = '新密碼不可與舊密碼相同';
+      return;
+    }
+
+    if (newPass !== confirmPass) {
+      errorEl.textContent = '兩次密碼不一致';
+      return;
+    }
+
+    const newHash = await hashPassword(newPass);
+    const auth = getAuthData();
+    saveAuthData({
+      ...auth,
+      passwordHash: newHash,
+      mustChange: false,
+      sessionValid: true
+    });
+
+    errorEl.textContent = '';
+    isAuthenticated = true;
+    mustChangePassword = false;
+    showMainApp();
+    initAll();
+    showToast('密碼已更新，請牢記新密碼', 'success');
+  }
+
+  function handleLogout() {
+    const auth = getAuthData();
+    if (auth) {
+      saveAuthData({ ...auth, sessionValid: false });
+    }
+    isAuthenticated = false;
+    showLoginScreen();
+  }
 
   // ===== Init =====
-  document.addEventListener('DOMContentLoaded', () => {
+  function initAll() {
     initNavigation();
     initMobileMenu();
-    initRipple();
     initDashboard();
     initAnnouncements();
     initFAQ();
@@ -45,6 +198,10 @@
     initTheme();
     initExportImport();
     initModal();
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initAuth();
   });
 
   // ===== Storage =====
@@ -73,6 +230,8 @@
     document.querySelectorAll('[data-nav]').forEach(el => {
       el.addEventListener('click', () => switchPanel(el.dataset.nav));
     });
+
+    document.getElementById('btn-logout')?.addEventListener('click', handleLogout);
   }
 
   function switchPanel(panelId) {
@@ -98,23 +257,6 @@
   function closeMobileMenu() {
     document.getElementById('btnMenu')?.classList.remove('active');
     document.getElementById('sidebar')?.classList.remove('open');
-  }
-
-  // ===== Ripple =====
-  function initRipple() {
-    document.addEventListener('click', (e) => {
-      const host = e.target.closest('.ripple-host');
-      if (!host) return;
-      const rect = host.getBoundingClientRect();
-      const ripple = document.createElement('span');
-      ripple.className = 'ripple';
-      const size = Math.max(rect.width, rect.height) * 2;
-      ripple.style.width = ripple.style.height = `${size}px`;
-      ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
-      ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
-      host.appendChild(ripple);
-      ripple.addEventListener('animationend', () => ripple.remove());
-    });
   }
 
   // ===== Dashboard =====
@@ -1117,6 +1259,7 @@
   // ===== Toast =====
   function showToast(message, type = 'info') {
     const container = document.getElementById('toast-container');
+    if (!container) return;
     const toast = document.createElement('div');
     toast.className = `toast ${type}`;
     toast.textContent = message;

@@ -13,7 +13,7 @@
    ========================================================================== */
 
 :root {
-  --admin-bg: #0f172a;
+  --admin-bg: transparent;
   --admin-sidebar: #1e293b;
   --admin-card: #1e293b;
   --admin-card-hover: #334155;
@@ -36,6 +36,88 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html {
+  font-size: 15px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--admin-font);
+  background: none;
+  color: var(--admin-text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* === Login Screen === */
+.login-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 380px;
+  background: var(--admin-sidebar);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius);
+  padding: 2rem 1.5rem;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.login-logo {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.login-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--admin-text);
+}
+
+.login-subtitle {
+  font-size: 0.82rem;
+  color: var(--admin-text-muted);
+  margin-top: 0.2rem;
+}
+
+.login-form .form-group {
+  margin-bottom: 1rem;
+}
+
+.login-error {
+  color: var(--admin-danger);
+  font-size: 0.82rem;
+  min-height: 1.2rem;
+  margin-bottom: 0.75rem;
+}
+
+.btn-login {
+  width: 100%;
+  padding: 0.7rem;
+  border: none;
+  border-radius: var(--admin-radius-sm);
+  background: var(--admin-primary);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-login:hover {
+  background: var(--admin-primary-hover);
 }
 
 html {
@@ -972,25 +1054,6 @@ body {
   to { transform: translateX(100%); opacity: 0; }
 }
 
-/* === Ripple === */
-.ripple-host {
-  position: relative;
-  overflow: hidden;
-}
-
-.ripple {
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(0);
-  animation: rippleExpand 0.5s ease-out forwards;
-  pointer-events: none;
-}
-
-@keyframes rippleExpand {
-  to { transform: scale(4); opacity: 0; }
-}
-
 /* === Empty State === */
 .empty-state {
   text-align: center;
@@ -1065,7 +1128,54 @@ body {
 </style>
 </head>
 <body>
-  <div class="admin-app">
+  <!-- Login Screen -->
+  <div class="login-screen" id="login-screen">
+    <div class="login-box">
+      <div class="login-header">
+        <span class="login-logo">?</span>
+        <h1 class="login-title">敺蝞∠??餃</h1>
+        <p class="login-subtitle">鞈?銝蝝?閮?</p>
+      </div>
+      <form id="login-form" class="login-form">
+        <div class="form-group">
+          <label class="form-label">撣唾?</label>
+          <input type="text" class="form-input" id="login-user" value="admin" autocomplete="username" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">撖Ⅳ</label>
+          <input type="password" class="form-input" id="login-pass" placeholder="頛詨撖Ⅳ" autocomplete="current-password" required>
+        </div>
+        <div class="login-error" id="login-error"></div>
+        <button type="submit" class="btn-login">?餃</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Change Password Screen -->
+  <div class="login-screen" id="change-password-screen" style="display:none">
+    <div class="login-box">
+      <div class="login-header">
+        <span class="login-logo">??</span>
+        <h1 class="login-title">擐活?餃嚗??湔撖Ⅳ</h1>
+        <p class="login-subtitle">?箏??刻絲閬?隢身摰撖Ⅳ</p>
+      </div>
+      <form id="change-password-form" class="login-form">
+        <div class="form-group">
+          <label class="form-label">?啣?蝣?/label>
+          <input type="password" class="form-input" id="new-password" placeholder="?喳? 4 ???? autocomplete="new-password" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">蝣箄??啣?蝣?/label>
+          <input type="password" class="form-input" id="confirm-password" placeholder="?活頛詨?啣?蝣? autocomplete="new-password" required>
+        </div>
+        <div class="login-error" id="change-error"></div>
+        <button type="submit" class="btn-login">蝣箄??湔撖Ⅳ</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Main Admin App -->
+  <div class="admin-app" id="admin-main" style="display:none">
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-header">
@@ -1123,6 +1233,10 @@ body {
           <span>??</span>
           <span>?汗?</span>
         </a>
+        <button class="sidebar-link" id="btn-logout">
+          <span>?</span>
+          <span>?餃</span>
+        </button>
       </div>
     </aside>
 
@@ -1145,28 +1259,28 @@ body {
           <p class="panel-desc">蝞∠??剔?鞈?蝡??摰?/p>
         </div>
         <div class="stat-grid">
-          <div class="stat-card ripple-host" data-nav="announcements">
+          <div class="stat-card" data-nav="announcements">
             <div class="stat-icon">?</div>
             <div class="stat-info">
               <span class="stat-value" id="stat-announcements">0</span>
               <span class="stat-label">???/span>
             </div>
           </div>
-          <div class="stat-card ripple-host" data-nav="faq">
+          <div class="stat-card" data-nav="faq">
             <div class="stat-icon">??/div>
             <div class="stat-info">
               <span class="stat-value" id="stat-faq">0</span>
               <span class="stat-label">蝑?FAQ</span>
             </div>
           </div>
-          <div class="stat-card ripple-host" data-nav="events">
+          <div class="stat-card" data-nav="events">
             <div class="stat-icon">??儭?/div>
             <div class="stat-info">
               <span class="stat-value" id="stat-events">0</span>
               <span class="stat-label">蝑蝔?/span>
             </div>
           </div>
-          <div class="stat-card ripple-host" data-nav="guidelines">
+          <div class="stat-card" data-nav="guidelines">
             <div class="stat-icon">??</div>
             <div class="stat-info">
               <span class="stat-value" id="stat-guidelines">0</span>
@@ -1177,16 +1291,16 @@ body {
         <div class="quick-actions">
           <h3 class="section-label">??敹恍?雿?/h3>
           <div class="action-grid">
-            <button class="action-btn ripple-host" data-nav="announcements">
+            <button class="action-btn" data-nav="announcements">
               <span>??/span> ?啣??砍?
             </button>
-            <button class="action-btn ripple-host" data-nav="faq">
+            <button class="action-btn" data-nav="faq">
               <span>??/span> ?啣? FAQ
             </button>
-            <button class="action-btn ripple-host" data-nav="events">
+            <button class="action-btn" data-nav="events">
               <span>??/span> ?啣??亦?
             </button>
-            <button class="action-btn ripple-host" data-nav="ai">
+            <button class="action-btn" data-nav="ai">
               <span>??</span> AI 頛
             </button>
           </div>
@@ -1197,7 +1311,7 @@ body {
       <section class="panel" id="panel-announcements">
         <div class="panel-header">
           <h2 class="panel-title">? ?砍?蝞∠?</h2>
-          <button class="btn-primary ripple-host" id="btn-add-announcement">???啣??砍?</button>
+          <button class="btn-primary" id="btn-add-announcement">???啣??砍?</button>
         </div>
         <div class="content-list" id="list-announcements"></div>
       </section>
@@ -1206,7 +1320,7 @@ body {
       <section class="panel" id="panel-faq">
         <div class="panel-header">
           <h2 class="panel-title">??FAQ 蝞∠?</h2>
-          <button class="btn-primary ripple-host" id="btn-add-faq">???啣? FAQ</button>
+          <button class="btn-primary" id="btn-add-faq">???啣? FAQ</button>
         </div>
         <div class="content-list" id="list-faq"></div>
       </section>
@@ -1215,7 +1329,7 @@ body {
       <section class="panel" id="panel-events">
         <div class="panel-header">
           <h2 class="panel-title">??儭??亦?蝞∠?</h2>
-          <button class="btn-primary ripple-host" id="btn-add-event">???啣??亦?</button>
+          <button class="btn-primary" id="btn-add-event">???啣??亦?</button>
         </div>
         <div class="content-list" id="list-events"></div>
       </section>
@@ -1224,7 +1338,7 @@ body {
       <section class="panel" id="panel-guidelines">
         <div class="panel-header">
           <h2 class="panel-title">?? 摰??蝞∠?</h2>
-          <button class="btn-primary ripple-host" id="btn-add-guideline">???啣?摰??</button>
+          <button class="btn-primary" id="btn-add-guideline">???啣?摰??</button>
         </div>
         <div class="content-list" id="list-guidelines"></div>
       </section>
@@ -1233,7 +1347,7 @@ body {
       <section class="panel" id="panel-rules">
         <div class="panel-header">
           <h2 class="panel-title">?? 閬?蝞∠?</h2>
-          <button class="btn-primary ripple-host" id="btn-add-rule">???啣?閬?</button>
+          <button class="btn-primary" id="btn-add-rule">???啣?閬?</button>
         </div>
         <div class="content-list" id="list-rules"></div>
       </section>
@@ -1242,7 +1356,7 @@ body {
       <section class="panel" id="panel-registrations">
         <div class="panel-header">
           <h2 class="panel-title">?? ?勗?蝞∠?</h2>
-          <button class="btn-primary ripple-host" id="btn-add-registration">???啣??勗?</button>
+          <button class="btn-primary" id="btn-add-registration">???啣??勗?</button>
         </div>
         <div class="content-list" id="list-registrations"></div>
       </section>
@@ -1314,7 +1428,7 @@ body {
               <label class="form-label">?瘙?餈?/label>
               <textarea class="form-textarea" id="ai-prompt" rows="4" placeholder="?膩?冽閬????批捆嚗?憒?&#10;?鼠?神銝???澆振?瑟????交???0??5?伐??閬振?瑞偷??璇?></textarea>
             </div>
-            <button class="btn-ai-generate ripple-host" id="btn-ai-generate">
+            <button class="btn-ai-generate" id="btn-ai-generate">
               <span class="btn-icon">??/span>
               <span>AI ??</span>
               <span class="loading-dots" style="display:none"><span>.</span><span>.</span><span>.</span></span>
@@ -1445,8 +1559,8 @@ body {
             </div>
           </div>
           <div class="theme-actions">
-            <button class="btn-primary ripple-host" id="btn-apply-theme">??憟銝駁?</button>
-            <button class="btn-secondary ripple-host" id="btn-reset-theme">?? ?身?身</button>
+            <button class="btn-primary" id="btn-apply-theme">??憟銝駁?</button>
+            <button class="btn-secondary" id="btn-reset-theme">?? ?身?身</button>
           </div>
         </div>
       </section>
@@ -1461,7 +1575,7 @@ body {
           <div class="export-section">
             <h3 class="section-label">? ?臬鞈?</h3>
             <p class="export-desc">撠??摰孵?箇 JSON 瑼?嚗?冽?遢?蝘颯?/p>
-            <button class="btn-primary ripple-host" id="btn-export-json">? ?臬 JSON</button>
+            <button class="btn-primary" id="btn-export-json">? ?臬 JSON</button>
           </div>
           <div class="export-section">
             <h3 class="section-label">? ?臬鞈?</h3>
@@ -1475,7 +1589,7 @@ body {
           <div class="export-section">
             <h3 class="section-label">?? ??????</h3>
             <p class="export-desc">撠????雿菔? HTML嚗??函??函蔡?????Ｕ?/p>
-            <button class="btn-primary ripple-host" id="btn-generate-static">?? ?????</button>
+            <button class="btn-primary" id="btn-generate-static">?? ?????</button>
           </div>
         </div>
       </section>
@@ -1513,7 +1627,11 @@ body {
   // ===== Storage Keys =====
   const STORAGE_KEY = 'class2c_admin_data';
   const THEME_KEY = 'class2c_theme';
-  const AI_KEY = 'class2c_ai_config';
+  const AUTH_KEY = 'class2c_auth';
+
+  // ===== Default Credentials =====
+  const DEFAULT_USER = 'admin';
+  const DEFAULT_PASS_HASH = '9af15b336e6a9619928537df30b2e6a2376569fcf9d7e773eccede65606529a0';
 
   // ===== Default Data =====
   const defaultData = {
@@ -1531,12 +1649,161 @@ body {
   let editingItem = null;
   let editingType = null;
   let aiTargetType = null;
+  let isAuthenticated = false;
+  let mustChangePassword = false;
+
+  // ===== Crypto Helpers =====
+  async function hashPassword(password) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  }
+
+  function getAuthData() {
+    try {
+      return JSON.parse(localStorage.getItem(AUTH_KEY)) || null;
+    } catch { return null; }
+  }
+
+  function saveAuthData(data) {
+    localStorage.setItem(AUTH_KEY, JSON.stringify(data));
+  }
+
+  function initAuth() {
+    const auth = getAuthData();
+
+    if (!auth) {
+      saveAuthData({
+        username: DEFAULT_USER,
+        passwordHash: DEFAULT_PASS_HASH,
+        mustChange: true
+      });
+    }
+
+    const stored = getAuthData();
+    if (stored && !stored.mustChange && stored.sessionValid) {
+      isAuthenticated = true;
+      mustChangePassword = false;
+      showMainApp();
+      initAll();
+    } else if (stored && stored.mustChange) {
+      mustChangePassword = true;
+      showChangePasswordScreen();
+    } else {
+      showLoginScreen();
+    }
+
+    document.getElementById('login-form')?.addEventListener('submit', handleLogin);
+    document.getElementById('change-password-form')?.addEventListener('submit', handleChangePassword);
+  }
+
+  function showLoginScreen() {
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('change-password-screen').style.display = 'none';
+    document.getElementById('admin-main').style.display = 'none';
+  }
+
+  function showChangePasswordScreen() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('change-password-screen').style.display = 'flex';
+    document.getElementById('admin-main').style.display = 'none';
+  }
+
+  function showMainApp() {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('change-password-screen').style.display = 'none';
+    document.getElementById('admin-main').style.display = 'flex';
+  }
+
+  async function handleLogin(e) {
+    e.preventDefault();
+    const user = document.getElementById('login-user')?.value.trim();
+    const pass = document.getElementById('login-pass')?.value;
+    const errorEl = document.getElementById('login-error');
+
+    const auth = getAuthData();
+    if (!auth) {
+      errorEl.textContent = '蝟餌絞?航炊嚗???渡??';
+      return;
+    }
+
+    if (user !== auth.username) {
+      errorEl.textContent = '撣唾???蝣潮隤?;
+      return;
+    }
+
+    const passHash = await hashPassword(pass);
+    if (passHash !== auth.passwordHash) {
+      errorEl.textContent = '撣唾???蝣潮隤?;
+      return;
+    }
+
+    errorEl.textContent = '';
+
+    if (auth.mustChange) {
+      mustChangePassword = true;
+      showChangePasswordScreen();
+    } else {
+      isAuthenticated = true;
+      saveAuthData({ ...auth, sessionValid: true });
+      showMainApp();
+      initAll();
+    }
+  }
+
+  async function handleChangePassword(e) {
+    e.preventDefault();
+    const newPass = document.getElementById('new-password')?.value;
+    const confirmPass = document.getElementById('confirm-password')?.value;
+    const errorEl = document.getElementById('change-error');
+
+    if (newPass.length < 4) {
+      errorEl.textContent = '撖Ⅳ?喳? 4 ????;
+      return;
+    }
+
+    if (newPass === '0000') {
+      errorEl.textContent = '?啣?蝣潔??航???蝣潛??;
+      return;
+    }
+
+    if (newPass !== confirmPass) {
+      errorEl.textContent = '?拇活撖Ⅳ銝???;
+      return;
+    }
+
+    const newHash = await hashPassword(newPass);
+    const auth = getAuthData();
+    saveAuthData({
+      ...auth,
+      passwordHash: newHash,
+      mustChange: false,
+      sessionValid: true
+    });
+
+    errorEl.textContent = '';
+    isAuthenticated = true;
+    mustChangePassword = false;
+    showMainApp();
+    initAll();
+    showToast('撖Ⅳ撌脫?堆?隢閮撖Ⅳ', 'success');
+  }
+
+  function handleLogout() {
+    const auth = getAuthData();
+    if (auth) {
+      saveAuthData({ ...auth, sessionValid: false });
+    }
+    isAuthenticated = false;
+    showLoginScreen();
+  }
 
   // ===== Init =====
-  document.addEventListener('DOMContentLoaded', () => {
+  function initAll() {
     initNavigation();
     initMobileMenu();
-    initRipple();
     initDashboard();
     initAnnouncements();
     initFAQ();
@@ -1548,6 +1815,10 @@ body {
     initTheme();
     initExportImport();
     initModal();
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initAuth();
   });
 
   // ===== Storage =====
@@ -1576,6 +1847,8 @@ body {
     document.querySelectorAll('[data-nav]').forEach(el => {
       el.addEventListener('click', () => switchPanel(el.dataset.nav));
     });
+
+    document.getElementById('btn-logout')?.addEventListener('click', handleLogout);
   }
 
   function switchPanel(panelId) {
@@ -1601,23 +1874,6 @@ body {
   function closeMobileMenu() {
     document.getElementById('btnMenu')?.classList.remove('active');
     document.getElementById('sidebar')?.classList.remove('open');
-  }
-
-  // ===== Ripple =====
-  function initRipple() {
-    document.addEventListener('click', (e) => {
-      const host = e.target.closest('.ripple-host');
-      if (!host) return;
-      const rect = host.getBoundingClientRect();
-      const ripple = document.createElement('span');
-      ripple.className = 'ripple';
-      const size = Math.max(rect.width, rect.height) * 2;
-      ripple.style.width = ripple.style.height = `${size}px`;
-      ripple.style.left = `${e.clientX - rect.left - size / 2}px`;
-      ripple.style.top = `${e.clientY - rect.top - size / 2}px`;
-      host.appendChild(ripple);
-      ripple.addEventListener('animationend', () => ripple.remove());
-    });
   }
 
   // ===== Dashboard =====
@@ -2620,6 +2876,7 @@ body {
   // ===== Toast =====
   function showToast(message, type = 'info') {
     const container = document.getElementById('toast-container');
+    if (!container) return;
     const toast = document.createElement('div');
     toast.className = `toast ${type}`;
     toast.textContent = message;

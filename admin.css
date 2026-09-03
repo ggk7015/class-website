@@ -3,7 +3,7 @@
    ========================================================================== */
 
 :root {
-  --admin-bg: #0f172a;
+  --admin-bg: transparent;
   --admin-sidebar: #1e293b;
   --admin-card: #1e293b;
   --admin-card-hover: #334155;
@@ -26,6 +26,88 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+html {
+  font-size: 15px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--admin-font);
+  background: none;
+  color: var(--admin-text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* === Login Screen === */
+.login-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 380px;
+  background: var(--admin-sidebar);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--admin-radius);
+  padding: 2rem 1.5rem;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.login-logo {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.login-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--admin-text);
+}
+
+.login-subtitle {
+  font-size: 0.82rem;
+  color: var(--admin-text-muted);
+  margin-top: 0.2rem;
+}
+
+.login-form .form-group {
+  margin-bottom: 1rem;
+}
+
+.login-error {
+  color: var(--admin-danger);
+  font-size: 0.82rem;
+  min-height: 1.2rem;
+  margin-bottom: 0.75rem;
+}
+
+.btn-login {
+  width: 100%;
+  padding: 0.7rem;
+  border: none;
+  border-radius: var(--admin-radius-sm);
+  background: var(--admin-primary);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-login:hover {
+  background: var(--admin-primary-hover);
 }
 
 html {
@@ -960,25 +1042,6 @@ body {
 @keyframes toastOut {
   from { transform: translateX(0); opacity: 1; }
   to { transform: translateX(100%); opacity: 0; }
-}
-
-/* === Ripple === */
-.ripple-host {
-  position: relative;
-  overflow: hidden;
-}
-
-.ripple {
-  position: absolute;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(0);
-  animation: rippleExpand 0.5s ease-out forwards;
-  pointer-events: none;
-}
-
-@keyframes rippleExpand {
-  to { transform: scale(4); opacity: 0; }
 }
 
 /* === Empty State === */
