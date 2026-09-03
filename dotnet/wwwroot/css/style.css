@@ -434,30 +434,8 @@ body:not(.dark-mode) #theme-toggle::after {
 .feature-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0.65rem;
-}
-
-.feature-grid-7 {
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.feature-grid-7 .feature-card:last-child {
-  grid-column: 1 / -1;
-}
-
-@media (min-width: 640px) {
-  .feature-grid-7 {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .feature-grid-7 .feature-card:last-child {
-    grid-column: auto;
-  }
-}
-
-@media (min-width: 769px) {
-  .feature-grid-7 {
-    grid-template-columns: repeat(4, 1fr);
-  }
+  gap: 0.75rem;
+  margin-bottom: 1.1rem;
 }
 
 .feature-card {
@@ -2792,56 +2770,6 @@ body.dark-mode .school-life-card {
   color: var(--text-muted);
   margin: 0;
   line-height: 1.5;
-}
-
-/* School Life External Links */
-.school-life-link {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  background: var(--bg-card);
-  border: 1px solid #e2e8f0;
-  border-radius: var(--border-radius-md);
-  padding: 0.7rem 0.85rem;
-  text-decoration: none;
-  color: var(--text-main);
-  box-shadow: var(--shadow-sm);
-  transition: background 0.15s, box-shadow 0.15s, border-color 0.15s;
-}
-
-.school-life-link:hover {
-  background: var(--bg-card-hover);
-  box-shadow: var(--shadow-md);
-  border-color: var(--primary-border);
-}
-
-body.dark-mode .school-life-link {
-  border-color: #334155;
-}
-
-body.dark-mode .school-life-link:hover {
-  border-color: #7c3aed;
-}
-
-.sll-icon {
-  font-size: 1.2rem;
-  flex-shrink: 0;
-}
-
-.sll-text {
-  flex: 1;
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
-.sll-arrow {
-  font-size: 0.8rem;
-  color: var(--text-light);
-  font-weight: 700;
-}
-
-.school-life-link:hover .sll-arrow {
-  color: var(--primary-color);
 }
 
 /* ================= Quick Links Section ================= */
