@@ -100,8 +100,8 @@
           <div id="search-results-list" class="search-results-list"></div>
         </div>
 
-        <!-- 6 Main Feature Entry Cards Grid (2 cols x 3 rows) -->
-        <div class="feature-grid">
+        <!-- 7 Main Feature Entry Cards Grid -->
+        <div class="feature-grid feature-grid-7">
 
           <!-- Card 1: 最新公告 -->
           <button class="feature-card" data-target-view="view-announcements" aria-label="📢 最新公告 查看近期班級重要通知">
@@ -187,6 +187,20 @@
             </div>
           </button>
 
+          <!-- Card 7: 校園生活 -->
+          <button class="feature-card" data-target-view="view-campus" aria-label="🏫 校園生活 天氣、福利社、校園設施與快速連結">
+            <div class="card-badge-container">
+              <span class="card-icon">🏫</span>
+            </div>
+            <div class="card-text-group">
+              <h3 class="card-title">校園生活</h3>
+              <p class="card-desc">天氣、福利社、設施與連結</p>
+            </div>
+            <div class="card-arrow">
+              <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </div>
+          </button>
+
         </div>
 
         <!-- Quick Access Section (移至六格卡片下方之快速功能) -->
@@ -215,7 +229,15 @@
           </p>
         </div>
 
-        <!-- Weather Widget (即時天氣) -->
+      </section>
+
+      <!-- ================= PAGE: 校園生活 (Campus Life) ================= -->
+      <section id="view-campus" class="page-view hidden">
+        <div class="view-intro-bar">
+          <span>🏫 校園生活資訊</span>
+        </div>
+
+        <!-- Weather Widget -->
         <div class="weather-widget" id="weather-widget">
           <div class="weather-header">
             <span class="weather-icon" id="weather-icon">🌤️</span>
@@ -250,19 +272,18 @@
             </div>
           </div>
           <div class="weather-forecast" id="weather-forecast">
-            <div class="forecast-title">未来三天預報</div>
+            <div class="forecast-title">未來三天預報</div>
             <div class="forecast-row" id="forecast-row"></div>
           </div>
         </div>
 
-        <!-- School Life Section (校園生活資訊) -->
+        <!-- School Life -->
         <div class="school-life-section">
           <div class="school-life-header">
-            <span class="school-life-icon">🏫</span>
-            <span class="school-life-title">校園生活資訊</span>
+            <span class="school-life-icon">🛒</span>
+            <span class="school-life-title">福利社與餐飲</span>
           </div>
           <div class="school-life-grid">
-
             <div class="school-life-card">
               <div class="slc-icon">🛒</div>
               <div class="slc-content">
@@ -270,7 +291,6 @@
                 <p class="slc-text">位於學生活動中心一樓，提供零食、飲料、文具等用品。營業時間：早午休及放學時段。</p>
               </div>
             </div>
-
             <div class="school-life-card">
               <div class="slc-icon">🍱</div>
               <div class="slc-content">
@@ -278,15 +298,15 @@
                 <p class="slc-text">每日由團膳業者供應，葷素可選。如有過敏或特殊飲食需求，請提前告知導師。</p>
               </div>
             </div>
+          </div>
+        </div>
 
-            <div class="school-life-card">
-              <div class="slc-icon">🚲</div>
-              <div class="slc-content">
-                <h4 class="slc-title">YouBike</h4>
-                <p class="slc-text">校門口設有 YouBike 站點，下課或放學可騎乘。需持記名卡或手機綁定租借。</p>
-              </div>
-            </div>
-
+        <div class="school-life-section">
+          <div class="school-life-header">
+            <span class="school-life-icon">🏫</span>
+            <span class="school-life-title">校園設施</span>
+          </div>
+          <div class="school-life-grid">
             <div class="school-life-card">
               <div class="slc-icon">📚</div>
               <div class="slc-content">
@@ -294,7 +314,6 @@
                 <p class="slc-text">提供自習空間、借閱書籍與期刊。開放時間：每日 08:00~17:00，例假日除外。</p>
               </div>
             </div>
-
             <div class="school-life-card">
               <div class="slc-icon">💻</div>
               <div class="slc-content">
@@ -302,7 +321,13 @@
                 <p class="slc-text">5F 電腦教室為資訊科與多媒體課程專用。課餘時間可向資訊組申請使用。</p>
               </div>
             </div>
-
+            <div class="school-life-card">
+              <div class="slc-icon">🚲</div>
+              <div class="slc-content">
+                <h4 class="slc-title">YouBike</h4>
+                <p class="slc-text">校門口設有 YouBike 站點，下課或放學可騎乘。需持記名卡或手機綁定租借。</p>
+              </div>
+            </div>
             <div class="school-life-card">
               <div class="slc-icon">🚌</div>
               <div class="slc-content">
@@ -310,11 +335,10 @@
                 <p class="slc-text">每日上下學有校車接送，路線涵蓋竹北、新埔、湖口等地。詳情請洽輔導室。</p>
               </div>
             </div>
-
           </div>
         </div>
 
-        <!-- Quick Links Section (快速連結) -->
+        <!-- Quick Links -->
         <div class="quick-links-section">
           <div class="quick-links-header">
             <span class="quick-links-icon">🔗</span>
