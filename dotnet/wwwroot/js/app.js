@@ -623,27 +623,35 @@ function initTimetable() {
         .forEach(periodObj => {
           const lesson = dayData.lessons.find(l => l.period === periodObj.period);
           const card = document.createElement('div');
-          card.className = 'lesson-card';
+          card.className = lesson ? 'lesson-card teacher-lesson-card' : 'lesson-card teacher-lesson-card teacher-empty';
 
           if (lesson) {
-            const lessonLabel = lesson.targetClass
-              ? `${escapeHtml(lesson.subject)}｜${escapeHtml(lesson.targetClass)}`
-              : escapeHtml(lesson.subject);
-
+            const targetClassHtml = lesson.targetClass
+              ? `<span class="teacher-target-class">${escapeHtml(lesson.targetClass)}</span>`
+              : '';
+            const timeHtml = `<span class="teacher-time-range">${periodObj.time}</span>`;
             card.innerHTML = `
               <div class="lesson-left">
-                <div class="period-badge">${lesson.period}</div>
+                <div class="period-badge teacher-badge">${lesson.period}</div>
                 <div class="lesson-info">
-                  <span class="subject-name">${lessonLabel}</span>
-                  <span class="time-range">${periodObj.time}</span>
+                  <span class="subject-name">${escapeHtml(lesson.subject)}</span>
+                  ${targetClassHtml}
                 </div>
+              </div>
+              <div class="lesson-right">
+                ${timeHtml}
               </div>
             `;
           } else {
             card.innerHTML = `
               <div class="lesson-left">
-                <div class="period-badge">${periodObj.period}</div>
-                <div class="lesson-info"></div>
+                <div class="period-badge teacher-badge">${periodObj.period}</div>
+                <div class="lesson-info">
+                  <span class="teacher-empty-text">空堂</span>
+                </div>
+              </div>
+              <div class="lesson-right">
+                <span class="teacher-time-range">${periodObj.time}</span>
               </div>
             `;
           }

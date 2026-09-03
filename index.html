@@ -498,5 +498,14 @@
 
   <!-- Animation Engine (Anime.js v4 + Motion) -->
   <script src="./js/animations.js"></script>
+
+  <!-- Service Worker Registration for Offline Access -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js')
+        .then(function(reg) { console.log('SW registered:', reg.scope); })
+        .catch(function(err) { console.log('SW registration failed:', err); });
+    }
+  </script>
 </body>
 </html>
