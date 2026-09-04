@@ -20,20 +20,27 @@
   <script src="https://cdn.jsdelivr.net/npm/animejs@4.0.0/lib/anime.iife.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/motion@11.11.13/dist/motion.js"></script>
 
-  <!-- Theme Toggle (inline, runs immediately) -->
+  <!-- Theme Toggle (inline, deferred to after DOM) -->
   <script>
     (function() {
-      var btn = document.getElementById('theme-toggle');
-      var body = document.body;
-      var saved = localStorage.getItem('class2c_theme');
-      if (saved === 'dark') {
-        body.classList.add('dark-mode');
+      function bindTheme() {
+        var btn = document.getElementById('theme-toggle');
+        var body = document.body;
+        var saved = localStorage.getItem('class2c_theme');
+        if (saved === 'dark') {
+          body.classList.add('dark-mode');
+        }
+        if (btn) {
+          btn.addEventListener('click', function() {
+            body.classList.toggle('dark-mode');
+            localStorage.setItem('class2c_theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+          });
+        }
       }
-      if (btn) {
-        btn.addEventListener('click', function() {
-          body.classList.toggle('dark-mode');
-          localStorage.setItem('class2c_theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
-        });
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', bindTheme);
+      } else {
+        bindTheme();
       }
     })();
   </script>
