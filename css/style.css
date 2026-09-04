@@ -2558,10 +2558,21 @@ body.dark-mode .day-group-box {
   background-color: #1e293b;
   border-color: #334155;
 }
+body.dark-mode .search-input-wrapper {
+  background-color: #0f172a;
+}
 body.dark-mode .search-input {
   background-color: #1e293b;
   border-color: #334155;
   color: #f8fafc;
+}
+body.dark-mode .quick-access-section {
+  background-color: #1e293b;
+}
+body.dark-mode .quick-btn {
+  background-color: #0f172a;
+  border-color: #475569;
+  color: #e2e8f0;
 }
 body.dark-mode .toast {
   background: #1e293b;
