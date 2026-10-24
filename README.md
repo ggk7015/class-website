@@ -30,8 +30,9 @@
 - 安全標頭 - CSP、X-Frame-Options 等安全設定
 
 ### 動畫系統
-- **Anime.js v4** - Scroll Observer 滾動觸發、Timeline 動畫序列
-- **Motion** - animate() 元素動畫、spring 物理彈簧效果
+- **CSS-only 動畫** - `@keyframes`、`transition`、`cubic-bezier(0.16, 1, 0.3, 1)` 緩動
+- **IntersectionObserver** - 滾動reveal 觸發（無依賴庫）
+- ** respects prefers-reduced-motion** - 尊重使用者動態偏好
 
 ## 技術棧
 
@@ -125,32 +126,30 @@ class-website/
 
 ## 動畫系統
 
-### Anime.js v4
+### CSS-only 動畫
 | 功能 | 用途 |
 |------|------|
-| Scroll Observer | 滾動觸發區塊淡入動畫 |
-| Timeline | 多元素序列動畫編排 |
-
-### Motion
-| 功能 | 用途 |
-|------|------|
-| animate() | 頁面載入、圖示跳動、水波紋、徽章脈動、FAQ展開、骨架屏、Toast通知、標題光澤 |
-| spring | 卡片懸停抬升、點擊縮放的物理彈簧效果 |
+| @keyframes | 頁面載入淡入、水波紋、Toast 通知 |
+| transition | 卡片懸停抬升、FAQ 展開、按鈕態樣 |
+| IntersectionObserver | 滾動 reveal 觸發（零依賴） |
+| prefers-reduced-motion | 尊重使用者動態偏好 |
 
 ## 設計系統
 
 ### 色彩
-- Primary: `#2563eb` (皇家藍)
-- Danger: `#ef4444` (緊急紅)
-- Success: `#10b981` (啟用綠)
-- Warning: `#f59e0b` (警告橘)
+- Primary: `#b5441c` (陶土 / 泥土紅)
+- Accent: `#4a6741` (鼠尾草綠)
+- Background: `#fbf7f2` (暖紙白)
+- Danger: `#c43d1f` (緊急紅)
+- Success: `#4a6741` (啟用綠)
+- Warning: `#b8862a` (警告琥珀)
 
 ### 字體
-- 主要: Noto Sans TC, Inter
-- 備選: -apple-system, BlinkMacSystemFont, Segoe UI
+- Display: Instrument Serif (標題)
+- Body: Noto Sans TC, Inter (內文)
 
 ### 間距
-- 使用 CSS Custom Properties 統一管理
+- 使用 CSS Custom Properties 統一管理 (8px base)
 - 響應式斷點: 640px, 769px, 1025px, 1440px
 
 ## 更新日誌
