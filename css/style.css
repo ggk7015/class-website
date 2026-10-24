@@ -1,11 +1,11 @@
 ﻿/* ==========================================================================
-   資二丙班級資訊站 - Redesigned v4 (NewForm Community inspired)
-   Dark hero, bold typography, card-based sections, clean modern layout
+   資二丙班級資訊站 - Redesigned v5 (Claymorphism + Academic Typography)
+   Design system: ui-ux-pro-max guided, claymorphism soft 3D, EB Garamond headings
    ========================================================================== */
 
 /* 1. CSS Custom Properties / Design Tokens */
 :root {
-  /* Brand — warm clay accent on dark editorial */
+  /* Brand — warm clay (kept from v4) */
   --primary-color: #b5441c;
   --primary-dark: #8c3510;
   --primary-light: #fcefe8;
@@ -14,6 +14,9 @@
   --accent-color: #4a6741;
   --accent-dark: #344d2c;
   --accent-light: #eef5ec;
+
+  --cta-color: #b8862a;
+  --cta-dark: #8c6a1a;
 
   /* Dark hero palette */
   --hero-bg: #1a1410;
@@ -39,7 +42,7 @@
   --warning-color: #b8862a;
   --warning-bg: #fef9f0;
 
-  /* Layout */
+  /* Layout — 8px base */
   --spacing-xs: 0.5rem;
   --spacing-sm: 0.75rem;
   --spacing-md: 1rem;
@@ -50,27 +53,30 @@
   --spacing-4xl: 5rem;
 
   --container-max: 1200px;
-  --border-radius-xl: 20px;
+  --border-radius-xl: 24px;
   --border-radius-lg: 16px;
   --border-radius-md: 12px;
   --border-radius-sm: 8px;
   --border-radius-pill: 9999px;
 
-  --shadow-sm: 0 1px 2px rgba(44, 36, 27, 0.04);
-  --shadow-md: 0 8px 24px -4px rgba(181, 68, 28, 0.07);
-  --shadow-lg: 0 20px 40px -8px rgba(181, 68, 28, 0.10);
+  /* Claymorphism shadows — inner+outer, soft, no hard lines */
+  --shadow-sm: 0 2px 4px rgba(44, 36, 27, 0.06), inset 0 1px 1px rgba(255,255,255,0.5);
+  --shadow-md: 0 8px 24px -4px rgba(181, 68, 28, 0.08), 0 2px 6px rgba(44, 36, 27, 0.04), inset 0 1px 1px rgba(255,255,255,0.6);
+  --shadow-lg: 0 20px 40px -8px rgba(181, 68, 28, 0.12), 0 4px 8px rgba(44, 36, 27, 0.06), inset 0 1px 2px rgba(255,255,255,0.7);
+  --shadow-press: 0 1px 2px rgba(44, 36, 27, 0.04), inset 0 2px 4px rgba(44, 36, 27, 0.06);
 
-  --font-display: 'Instrument Serif', 'Noto Serif TC', 'Songti SC', 'STSong', serif;
+  /* Typography — academic serif (EB Garamond / Crimson Text) */
+  --font-display: 'EB Garamond', 'Noto Serif TC', 'Songti SC', 'STSong', serif;
   --font-body: 'Noto Sans TC', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', 'Consolas', monospace;
 
   --font-size-base: clamp(15px, 2.5vw + 10px, 17px);
 
-  /* Motion — cubic-bezier only */
+  /* Motion — cubic-bezier only, 200ms soft press */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.64, 0, 0.36, 1);
   --duration-fast: 120ms;
-  --duration-normal: 240ms;
+  --duration-normal: 200ms;
   --duration-slow: 360ms;
 }
 
@@ -115,7 +121,7 @@ body {
   margin: 0 auto;
 }
 
-/* 4. Hero Header — dark masthead (NewForm style) */
+/* 4. Hero Header — dark masthead with claymorphism */
 .app-header {
   background: linear-gradient(135deg, var(--hero-bg) 0%, var(--hero-bg-2) 100%);
   color: var(--hero-text);
@@ -364,7 +370,7 @@ body {
   display: none !important;
 }
 
-/* 8. Home Feature Grid — NewForm card style */
+/* 8. Home Feature Grid — Claymorphism cards */
 .feature-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -380,7 +386,7 @@ body {
 
 .feature-card {
   background-color: var(--bg-card);
-  border: 1px solid #e8e2d9;
+  border: 3px solid #e8e2d9;
   border-radius: var(--border-radius-xl);
   padding: var(--spacing-xl);
   display: flex;
@@ -388,13 +394,13 @@ body {
   align-items: flex-start;
   text-align: left;
   cursor: pointer;
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
   position: relative;
   min-height: 220px;
   width: 100%;
-  transition: transform var(--duration-fast) var(--ease-out),
-              box-shadow var(--duration-fast) var(--ease-out),
-              border-color var(--duration-fast) var(--ease-out);
+  transition: transform var(--duration-normal) var(--ease-out),
+              box-shadow var(--duration-normal) var(--ease-out),
+              border-color var(--duration-normal) var(--ease-out);
   user-select: none;
   overflow: hidden;
 }
@@ -412,12 +418,13 @@ body {
 
 .feature-card:hover {
   border-color: var(--primary-border);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-lg);
   transform: translateY(-4px);
 }
 .feature-card:hover::before { transform: scaleX(1); }
 .feature-card:active {
   transform: scale(0.97);
+  box-shadow: var(--shadow-press);
   background-color: var(--bg-card-hover);
 }
 
@@ -425,9 +432,9 @@ body {
   padding: var(--spacing-2xl);
   min-height: 300px;
   background: linear-gradient(135deg, var(--primary-light) 0%, var(--bg-card) 100%);
-  border: none;
+  border: 3px solid var(--primary-border);
 }
-.featured:hover { border-color: transparent; }
+.featured:hover { border-color: var(--primary-color); }
 .featured .card-title { color: var(--primary-dark); font-size: clamp(1.5rem, 3vw + 0.5rem, 2rem); }
 .featured .card-desc { color: var(--text-muted); font-size: 1rem; }
 
@@ -479,7 +486,7 @@ body {
   transform: translateX(5px);
 }
 
-/* 9. Quick Access — horizontal scrollable pills (NewForm style) */
+/* 9. Quick Access — horizontal scrollable pills */
 .quick-access-section {
   margin-bottom: var(--spacing-2xl);
 }
@@ -507,7 +514,7 @@ body {
 .quick-btn {
   flex: 0 0 auto;
   background-color: var(--bg-card);
-  border: 1px solid #e8e2d9;
+  border: 2px solid #e8e2d9;
   border-radius: var(--border-radius-pill);
   padding: 0.6rem 1.2rem;
   display: inline-flex;
@@ -521,16 +528,17 @@ body {
   cursor: pointer;
   min-height: 44px;
   box-shadow: var(--shadow-sm);
-  transition: all var(--duration-fast) var(--ease-out);
+  transition: all var(--duration-normal) var(--ease-out);
   scroll-snap-align: start;
 }
 .quick-btn:hover {
   border-color: var(--primary-border);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-md);
   transform: translateY(-2px);
 }
 .quick-btn:active {
   transform: scale(0.96);
+  box-shadow: var(--shadow-press);
   background-color: var(--bg-card-hover);
 }
 
@@ -567,12 +575,12 @@ body {
 .announcement-card {
   background-color: var(--bg-card);
   border-radius: var(--border-radius-xl);
-  border: 1px solid #e8e2d9;
+  border: 3px solid #e8e2d9;
   box-shadow: var(--shadow-sm);
   overflow: hidden;
-  transition: transform var(--duration-fast) var(--ease-out),
-              box-shadow var(--duration-fast) var(--ease-out),
-              border-color var(--duration-fast) var(--ease-out);
+  transition: transform var(--duration-normal) var(--ease-out),
+              box-shadow var(--duration-normal) var(--ease-out),
+              border-color var(--duration-normal) var(--ease-out);
 }
 
 .announcement-card.is-important {
@@ -721,42 +729,7 @@ body {
   color: var(--hero-text-muted);
 }
 
-/* 13. Print Styles */
-@media print {
-  .app-header,
-  .app-footer,
-  .search-bar-container,
-  .quick-access-section,
-  .home-quick-info,
-  .feature-grid,
-  .btn-back-home {
-    display: none !important;
-  }
-  .app-container {
-    max-width: 100%;
-    box-shadow: none;
-  }
-  .page-view {
-    display: block !important;
-  }
-  .announcement-card {
-    break-inside: avoid;
-  }
-}
-
-/* 14. Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
-}
-
-.hidden {
-  display: none !important;
-}
-
-/* CTA Button (NewForm style) */
+/* 13. CTA Button */
 .btn-cta-primary {
   display: inline-flex;
   align-items: center;
@@ -781,4 +754,39 @@ body {
 }
 .btn-cta-primary:active {
   transform: scale(0.97);
+}
+
+/* 14. Print Styles */
+@media print {
+  .app-header,
+  .app-footer,
+  .search-bar-container,
+  .quick-access-section,
+  .home-quick-info,
+  .feature-grid,
+  .btn-back-home {
+    display: none !important;
+  }
+  .app-container {
+    max-width: 100%;
+    box-shadow: none;
+  }
+  .page-view {
+    display: block !important;
+  }
+  .announcement-card {
+    break-inside: avoid;
+  }
+}
+
+/* 15. Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+.hidden {
+  display: none !important;
 }
