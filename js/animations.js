@@ -9,6 +9,19 @@
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  // --- Sticky Header Shadow on Scroll ---
+  function initStickyHeader() {
+    const header = document.getElementById('app-header');
+    if (!header) return;
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) {
+        header.classList.add('sticky-scrolled');
+      } else {
+        header.classList.remove('sticky-scrolled');
+      }
+    });
+  }
+
   // --- Scroll Reveal via IntersectionObserver (CSS transitions handle the rest) ---
   function initScrollReveal() {
     if (prefersReducedMotion) return;
@@ -86,6 +99,7 @@
   }
 
   function initAllAnimations() {
+    initStickyHeader();
     initScrollReveal();
     initRipple();
     initToast();
